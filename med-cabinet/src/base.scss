@@ -1,0 +1,34 @@
+$c1: #ffcab1;
+$c2: #69a2b0;
+$c3: #659157;
+$c4: #a1c084;
+$c5: #e05263;
+$xs: 0.1rem;
+$sm: 0.5rem;
+$md: 1rem;
+$lg: 2rem;
+$xl: 4rem;
+@mixin flexR() {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+}
+@mixin flexC() {
+  @include flexR();
+  flex-direction: column;
+}
+@mixin button() {
+  background-color: $c5;
+  margin: 0 $sm;
+  padding: $sm;
+  text-decoration: none;
+  color: white;
+  box-shadow: $xs $xs $xs 0 transparentize(black, 0.5);
+  border-radius: $sm;
+  &:hover {
+    background-color: white;
+    color: $c5;
+  }
+}
