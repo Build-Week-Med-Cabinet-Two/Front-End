@@ -1,0 +1,38 @@
+features
+registration, login, strain recommender, save recommendations
+
+dream features
+location of dispensary
+location of strain availability
+percentage match that the strain will help you
+
+3 similar app features
+type, price, location
+
+frameworks/libraries
+React 2, Bootstrap, Router, Axios, Material UI
+
+colors:
+https://coolors.co/ffcab1-69a2b0-659157-a1c084-e05263
+#ffcab1
+#69a2b0
+#659157
+#a1c084
+#e05263
+
+apricot, cadet blue, russian green, olivine, paradise pink
+
+my tasks:
+registration: name, email, password, zip code, b-day/age check (over 21)
+sign in
+nav Bar. 
+
+flow:
+git pull origin from master, branch, add holly/megan as reviewer, pull request
+
+links:
+https://www.notion.so/Med-Cabinet-2dc938cdd93544c6a802bd810252e3ef
+https://www.figma.com/file/2orWbIzxuyeY1DYNlvNrVd/Med-Cabinet_Frantz-Audige?node-id=51%3A30
+rubric: https://www.notion.so/Web-Unit-2-b9f9c21279964ea4b923ca6252f15421
+https://trello.com/b/hm2CcAtJ/build-week-med-cabinet-two
+https://material-ui.com/styles/basics/
