@@ -36,3 +36,12 @@ https://www.figma.com/file/2orWbIzxuyeY1DYNlvNrVd/Med-Cabinet_Frantz-Audige?node
 rubric: https://www.notion.so/Web-Unit-2-b9f9c21279964ea4b923ca6252f15421
 https://trello.com/b/hm2CcAtJ/build-week-med-cabinet-two
 https://material-ui.com/styles/basics/
+
+
+new dependencies:
+
+node-sass
+react-hook-form
+yup
+@hookform/resolvers
+moment
