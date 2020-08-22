@@ -1,0 +1,16 @@
+@import "../base.scss";
+header {
+  background-color: $c2;
+  @include flexR();
+  justify-content: space-between;
+  padding: $sm;
+  h1 {
+    font-size: 1.2rem;
+  }
+  nav {
+    @include flexR();
+    a {
+      @include button();
+    }
+  }
+}
