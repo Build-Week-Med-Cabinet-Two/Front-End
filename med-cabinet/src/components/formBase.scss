@@ -28,6 +28,7 @@
     }
   }
   button {
+    border: none;
     align-self: flex-end;
     @include button();
     margin: $sm;
