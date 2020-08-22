@@ -22,10 +22,13 @@
     @include flexC();
     padding: $sm;
     align-items: flex-start;
-    .formError {
-      color: #933;
-      font-weight: bold;
-    }
+  }
+  .formError {
+    color: #933;
+    font-weight: bold;
+  }
+  & > .formError {
+    padding: $sm;
   }
   button {
     border: none;

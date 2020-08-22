@@ -2,11 +2,13 @@ import React, { useRef, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers";
 import moment from "moment";
+import axios from "axios";
 import * as yup from "yup";
 import "./RegistrationKS.scss";
 
 //name, email, password, zip code, b-day/age check (over 21)
 const schema = yup.object().shape({
+  form: yup.string(),
   name: yup.string().required("↑ enter your name"),
   email: yup
     .string()
@@ -42,12 +44,25 @@ const schema = yup.object().shape({
 });
 
 function RegistrationKS(props) {
-  const { register, handleSubmit, errors } = useForm({
+  const { register, handleSubmit, setError, errors } = useForm({
     resolver: yupResolver(schema),
   });
   const onSubmit = (data) => {
     console.log("submit");
-    console.log(data);
+    axios
+      .post("https://medcabinet2.herokuapp.com/auth/register/", {
+        username: data.username,
+        email: data.email,
+        password: data.password,
+      })
+      .then((r) => console.log(r))
+      .catch((e) => {
+        setError("form", {
+          type: "manual",
+          message: e.message,
+        });
+      });
+    console.log(data.username);
   };
   const nameRef = useRef();
   useEffect(() => nameRef.current.focus(), []);
@@ -114,6 +129,7 @@ function RegistrationKS(props) {
         ></input>
         <p className="formError">{errors.birthDate?.message}</p>
       </label>
+      <p className="formError">{errors.form?.message}</p>
       <button type="submit">register!</button>
     </form>
   );
