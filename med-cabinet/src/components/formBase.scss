@@ -29,6 +29,7 @@
   }
   button {
     border: none;
+    font-family: $font1;
     align-self: flex-end;
     @include button();
     margin: $sm;

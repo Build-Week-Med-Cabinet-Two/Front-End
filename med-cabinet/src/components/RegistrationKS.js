@@ -16,14 +16,18 @@ const schema = yup.object().shape({
     .string()
     .matches(/^[0-9]{5}$/, "↑ enter a valid zip code")
     .required("↑ enter a valid zip code"),
+  username: yup
+    .string()
+    .required("↑ enter a username")
+    .min(3, "↑ username too short"),
   password: yup
     .string()
-    .min(5, "↑ enter a strong password")
-    .required("↑ enter a password"),
+    .required("↑ enter a password")
+    .min(5, "↑ enter a strong password"),
   passwordConfirm: yup
     .string()
     .oneOf([yup.ref("password"), null], "↑ passwords don't match")
-    .required("↑ confirm your password")
+    .required("↑ confirm password")
     .typeError("test"),
   birthDate: yup
     .date("↑ enter your birthdate")
@@ -74,6 +78,11 @@ function RegistrationKS(props) {
         <input id="zipcode" type="text" name="zipcode" ref={register}></input>
         <p className="formError">{errors.zipcode?.message}</p>
       </label>
+      <label htmlFor="username">
+        <p>choose a username:</p>
+        <input id="username" type="text" name="username" ref={register}></input>
+        <p className="formError">{errors.username?.message}</p>
+      </label>
       <label htmlFor="password">
         <p>create a password:</p>
         <input
@@ -85,7 +94,7 @@ function RegistrationKS(props) {
         <p className="formError">{errors.password?.message}</p>
       </label>
       <label htmlFor="passwordConfirm">
-        <p>confirm your password:</p>
+        <p>confirm password:</p>
         <input
           id="passwordConfirm"
           type="password"
