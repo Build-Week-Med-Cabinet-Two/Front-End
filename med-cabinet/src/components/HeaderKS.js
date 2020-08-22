@@ -4,7 +4,7 @@ import "./HeaderKS.scss";
 function HeaderKS(props) {
   return (
     <header>
-      <h1>MC</h1>
+      <h1>MedicineCabinet</h1>
       <nav>
         <Link to="/register">register</Link>
         <Link to="/login">log in</Link>

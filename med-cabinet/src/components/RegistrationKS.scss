@@ -1,32 +1,5 @@
 @import "../base.scss";
+@import "./formBase.scss";
 #registrationForm {
-  @include flexC();
-  align-items: flex-start;
-  background-color: $c2;
-  margin: $md auto;
-  box-shadow: $xs $xs $xs 0 transparentize(black, 0.5);
-  border-radius: $sm;
-  h2 {
-    width: 100%;
-    background-color: $c5;
-    color: white;
-    padding: $sm;
-    border-radius: $sm $sm 0 0;
-    border-bottom: 1px solid transparentize(black, 0.5);
-    font-size: 1.2rem;
-  }
-  label {
-    @include flexC();
-    padding: $sm;
-    align-items: flex-start;
-    .formError {
-      color: #933;
-      font-weight: bold;
-    }
-  }
-  button {
-    align-self: flex-end;
-    @include button();
-    margin: $sm;
-  }
+  @include formBase();
 }
