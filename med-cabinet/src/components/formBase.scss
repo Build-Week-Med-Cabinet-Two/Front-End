@@ -37,4 +37,12 @@
     @include button();
     margin: $sm;
   }
+  button:disabled {
+    background-color: desaturate($c3, 20);
+    color: darken($c5, 50);
+    box-shadow: unset;
+    &:hover {
+      cursor: default;
+    }
+  }
 }

@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers";
 import moment from "moment";
@@ -47,7 +47,9 @@ function RegistrationKS(props) {
   const { register, handleSubmit, setError, errors } = useForm({
     resolver: yupResolver(schema),
   });
+  const [submitButtonEnabled, setSubmitButtonEnabled] = useState(true);
   const onSubmit = (data) => {
+    setSubmitButtonEnabled(false);
     console.log("submit");
     axios
       .post("https://medcabinet2.herokuapp.com/auth/register/", {
@@ -61,11 +63,29 @@ function RegistrationKS(props) {
           type: "manual",
           message: e.message,
         });
+        setSubmitButtonEnabled(true);
       });
     console.log(data.username);
   };
   const nameRef = useRef();
-  useEffect(() => nameRef.current.focus(), []);
+  useEffect(() => {
+    nameRef.current.focus();
+    axios({
+      method: "post",
+      url: "https://medcabinet2.herokuapp.com/auth/register",
+      headers: {
+        Accept: "*/*",
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      data: {
+        username: "testusername",
+        email: "test@gmail.com",
+        password: "testpa5sw0rd",
+      },
+    })
+      .then((r) => console.log(r))
+      .catch((e) => console.log(e));
+  }, []);
   return (
     <form id="registrationForm" onSubmit={handleSubmit(onSubmit)}>
       <h2>register as a new user</h2>
@@ -130,7 +150,13 @@ function RegistrationKS(props) {
         <p className="formError">{errors.birthDate?.message}</p>
       </label>
       <p className="formError">{errors.form?.message}</p>
-      <button type="submit">register!</button>
+      {submitButtonEnabled ? (
+        <button type="submit">register!</button>
+      ) : (
+        <button type="submit" disabled>
+          submitting ...
+        </button>
+      )}
     </form>
   );
 }
