@@ -6,10 +6,9 @@ export default function Form() {
   const initialFormState = {
     zipCode: "",
     issue: "",
-    effects:"",
-    flavor:"",
+    effects: "",
+    flavor: "",
     intake: ""
-    
   };
 
   const [post, setPost] = useState([]);
@@ -23,12 +22,11 @@ export default function Form() {
   const [errors, setErrors] = useState(initialFormState);
 
   const formSchema = yup.object().shape({
-    
     zipCode: yup.number().required().min(5),
     issue: yup.string().required("Must outline an issue"),
     effects: yup.string().required("Must detailed desired effects"),
     flavor: yup.string().required("Must state preferred flavor/s"),
-    descriptiintakeon: yup.string().required("State preferred intake methods")
+    intake: yup.string().required("State preferred intake methods")
   });
 
   const validateChange = (e) => {
@@ -55,17 +53,17 @@ export default function Form() {
     e.preventDefault();
 
     axios
-      .post("h", formState)
+      .post("https://medcabinet2.herokuapp.com/auth/register", formState)
       .then((response) => {
         setPost(response.data);
 
         setFormState({
           zipCode: "",
           issue: "",
-          effects:"",
-          flavor:"",
-          intake: "",
-         });
+          effects: "",
+          flavor: "",
+          intake: ""
+        });
 
         setServerError(null);
       })
@@ -89,7 +87,7 @@ export default function Form() {
   return (
     <form onSubmit={submitForm}>
       {serverError ? <p className="error">{serverError}</p> : null}
-      
+
       <label htmlFor="zipCode">
         Zipcode
         <input
