@@ -17,7 +17,7 @@ function App() {
   return (
     <Router>
       <div className="App">
-        <HeaderKS user={user} />
+        <HeaderKS user={user} setUser={setUser} />
         <Switch>
           <Route exact path="/">
             <UserData />
@@ -30,7 +30,11 @@ function App() {
             )}
           </Route>
           <Route path="/login">
-            <LoginKS />
+            {user.username === null ? (
+              <LoginKS setUser={setUser} />
+            ) : (
+              <Redirect to="/" />
+            )}
           </Route>
         </Switch>
       </div>

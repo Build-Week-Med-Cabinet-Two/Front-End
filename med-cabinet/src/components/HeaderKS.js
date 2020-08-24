@@ -14,7 +14,12 @@ function HeaderKS(props) {
             <Link to="/login">log in</Link>
           </>
         ) : (
-          <Link to="/logout">logout ({props.user.username})</Link>
+          <Link
+            to="/"
+            onClick={() => props.setUser({ username: null, token: null })}
+          >
+            logout ({props.user.username})
+          </Link>
         )}
       </nav>
     </header>
