@@ -1,12 +1,14 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers";
 import moment from "moment";
+import axios from "axios";
 import * as yup from "yup";
 import "./RegistrationKS.scss";
 
 //name, email, password, zip code, b-day/age check (over 21)
 const schema = yup.object().shape({
+  form: yup.string(),
   name: yup.string().required("↑ enter your name"),
   email: yup
     .string()
@@ -16,14 +18,18 @@ const schema = yup.object().shape({
     .string()
     .matches(/^[0-9]{5}$/, "↑ enter a valid zip code")
     .required("↑ enter a valid zip code"),
+  username: yup
+    .string()
+    .required("↑ enter a username")
+    .min(3, "↑ username too short"),
   password: yup
     .string()
-    .min(5, "↑ enter a strong password")
-    .required("↑ enter a password"),
+    .required("↑ enter a password")
+    .min(5, "↑ enter a strong password"),
   passwordConfirm: yup
     .string()
     .oneOf([yup.ref("password"), null], "↑ passwords don't match")
-    .required("↑ confirm your password")
+    .required("↑ confirm password")
     .typeError("test"),
   birthDate: yup
     .date("↑ enter your birthdate")
@@ -38,15 +44,43 @@ const schema = yup.object().shape({
 });
 
 function RegistrationKS(props) {
-  const { register, handleSubmit, errors } = useForm({
+  const { register, handleSubmit, setError, errors } = useForm({
     resolver: yupResolver(schema),
   });
+  const [submitButtonEnabled, setSubmitButtonEnabled] = useState(true);
   const onSubmit = (data) => {
+    setSubmitButtonEnabled(false);
     console.log("submit");
-    console.log(data);
+    axios
+      .post("https://medcabinet2.herokuapp.com/auth/register/", {
+        username: data.username,
+        email: data.email,
+        password: data.password,
+      })
+      .then((r) => {
+        if (r.status === 201 && r.data.token && r.data.data.username) {
+          props.setUser({
+            username: r.data.data.username,
+            token: r.data.token,
+          });
+        } else {
+          setError("form", { type: "manual", message: "unknown error" });
+          setSubmitButtonEnabled(true);
+        }
+      })
+      .catch((e) => {
+        setError("form", {
+          type: "manual",
+          message: e.message,
+        });
+        setSubmitButtonEnabled(true);
+      });
+    console.log(data.username);
   };
   const nameRef = useRef();
-  useEffect(() => nameRef.current.focus(), []);
+  useEffect(() => {
+    nameRef.current.focus();
+  }, []);
   return (
     <form id="registrationForm" onSubmit={handleSubmit(onSubmit)}>
       <h2>register as a new user</h2>
@@ -57,6 +91,7 @@ function RegistrationKS(props) {
           id="name"
           type="text"
           name="name"
+          autoComplete="name"
           ref={(e) => {
             register(e);
             nameRef.current = e; // you can still assign to ref
@@ -66,13 +101,36 @@ function RegistrationKS(props) {
       </label>
       <label htmlFor="email">
         <p>email address:</p>
-        <input id="email" type="email" name="email" ref={register}></input>
+        <input
+          id="email"
+          type="email"
+          name="email"
+          ref={register}
+          autoComplete="email"
+        ></input>
         <p className="formError">{errors.email?.message}</p>
       </label>
       <label htmlFor="zipcode">
         <p>your zip code:</p>
-        <input id="zipcode" type="text" name="zipcode" ref={register}></input>
+        <input
+          id="zipcode"
+          type="text"
+          name="zipcode"
+          ref={register}
+          autoComplete="postal-code"
+        ></input>
         <p className="formError">{errors.zipcode?.message}</p>
+      </label>
+      <label htmlFor="username">
+        <p>choose a username:</p>
+        <input
+          id="username"
+          type="text"
+          name="username"
+          ref={register}
+          autoComplete="username"
+        ></input>
+        <p className="formError">{errors.username?.message}</p>
       </label>
       <label htmlFor="password">
         <p>create a password:</p>
@@ -80,16 +138,18 @@ function RegistrationKS(props) {
           id="password"
           type="password"
           name="password"
+          autoComplete="new-password"
           ref={register}
         ></input>
         <p className="formError">{errors.password?.message}</p>
       </label>
       <label htmlFor="passwordConfirm">
-        <p>confirm your password:</p>
+        <p>confirm password:</p>
         <input
           id="passwordConfirm"
           type="password"
           name="passwordConfirm"
+          autoComplete="off"
           ref={register}
         ></input>
         <p className="formError">{errors.passwordConfirm?.message}</p>
@@ -100,12 +160,20 @@ function RegistrationKS(props) {
           id="birthDate"
           type="date"
           name="birthDate"
+          autoComplete="bday"
           ref={register}
           defaultValue={undefined}
         ></input>
         <p className="formError">{errors.birthDate?.message}</p>
       </label>
-      <button type="submit">register!</button>
+      <p className="formError">{errors.form?.message}</p>
+      {submitButtonEnabled ? (
+        <button type="submit">register!</button>
+      ) : (
+        <button type="submit" disabled>
+          submitting ...
+        </button>
+      )}
     </form>
   );
 }
