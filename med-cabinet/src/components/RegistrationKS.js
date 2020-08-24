@@ -70,21 +70,6 @@ function RegistrationKS(props) {
   const nameRef = useRef();
   useEffect(() => {
     nameRef.current.focus();
-    axios({
-      method: "post",
-      url: "https://medcabinet2.herokuapp.com/auth/register",
-      headers: {
-        Accept: "*/*",
-        "Content-Type": "application/x-www-form-urlencoded",
-      },
-      data: {
-        username: "testusername",
-        email: "test@gmail.com",
-        password: "testpa5sw0rd",
-      },
-    })
-      .then((r) => console.log(r))
-      .catch((e) => console.log(e));
   }, []);
   return (
     <form id="registrationForm" onSubmit={handleSubmit(onSubmit)}>
@@ -96,6 +81,7 @@ function RegistrationKS(props) {
           id="name"
           type="text"
           name="name"
+          autoComplete="name"
           ref={(e) => {
             register(e);
             nameRef.current = e; // you can still assign to ref
@@ -105,17 +91,35 @@ function RegistrationKS(props) {
       </label>
       <label htmlFor="email">
         <p>email address:</p>
-        <input id="email" type="email" name="email" ref={register}></input>
+        <input
+          id="email"
+          type="email"
+          name="email"
+          ref={register}
+          autoComplete="email"
+        ></input>
         <p className="formError">{errors.email?.message}</p>
       </label>
       <label htmlFor="zipcode">
         <p>your zip code:</p>
-        <input id="zipcode" type="text" name="zipcode" ref={register}></input>
+        <input
+          id="zipcode"
+          type="text"
+          name="zipcode"
+          ref={register}
+          autoComplete="postal-code"
+        ></input>
         <p className="formError">{errors.zipcode?.message}</p>
       </label>
       <label htmlFor="username">
         <p>choose a username:</p>
-        <input id="username" type="text" name="username" ref={register}></input>
+        <input
+          id="username"
+          type="text"
+          name="username"
+          ref={register}
+          autoComplete="username"
+        ></input>
         <p className="formError">{errors.username?.message}</p>
       </label>
       <label htmlFor="password">
@@ -124,6 +128,7 @@ function RegistrationKS(props) {
           id="password"
           type="password"
           name="password"
+          autoComplete="new-password"
           ref={register}
         ></input>
         <p className="formError">{errors.password?.message}</p>
@@ -134,6 +139,7 @@ function RegistrationKS(props) {
           id="passwordConfirm"
           type="password"
           name="passwordConfirm"
+          autoComplete="off"
           ref={register}
         ></input>
         <p className="formError">{errors.passwordConfirm?.message}</p>
@@ -144,6 +150,7 @@ function RegistrationKS(props) {
           id="birthDate"
           type="date"
           name="birthDate"
+          autoComplete="bday"
           ref={register}
           defaultValue={undefined}
         ></input>
