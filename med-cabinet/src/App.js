@@ -20,7 +20,11 @@ function App() {
         <HeaderKS user={user} setUser={setUser} />
         <Switch>
           <Route exact path="/">
-            <UserData />
+            {user.username === null ? (
+              <p>new user home page here</p>
+            ) : (
+              <UserData user={user} />
+            )}
           </Route>
           <Route path="/register">
             {user.username === null ? (
