@@ -28,6 +28,9 @@ function LoginKS(props) {
         } else {
           setError("form", { type: "manual", message: "unknown error" });
         }
+      })
+      .catch((e) => {
+        setError("form", { type: "manual", message: "server error" });
       });
   };
   const usernameRef = useRef();
@@ -49,7 +52,7 @@ function LoginKS(props) {
         <p className="formError">{errors.username?.message}</p>
       </label>
       <label htmlFor="password">
-        <p>your password:</p>
+        <p>password:</p>
         <input
           id="password"
           type="password"
@@ -58,6 +61,7 @@ function LoginKS(props) {
         ></input>
         <p className="formError">{errors.password?.message}</p>
       </label>
+      <p className="formError">{errors.form?.message}</p>
       <button type="submit">log in!</button>
     </form>
   );
