@@ -9,7 +9,7 @@ export default function Form() {
     issue: "",
     effects: "",
     flavor: "",
-    intake: ""
+    intake: "",
   };
 
   const [post, setPost] = useState([]);
@@ -27,7 +27,7 @@ export default function Form() {
     issue: yup.string().required("Must outline an issue"),
     effects: yup.string().required("Must detailed desired effects"),
     flavor: yup.string().required("Must state preferred flavor/s"),
-    intake: yup.string().required("State preferred intake methods")
+    intake: yup.string().required("State preferred intake methods"),
   });
 
   const validateChange = (e) => {
@@ -63,7 +63,7 @@ export default function Form() {
           issue: "",
           effects: "",
           flavor: "",
-          intake: ""
+          intake: "",
         });
 
         setServerError(null);
@@ -79,7 +79,7 @@ export default function Form() {
     const newFormData = {
       ...formState,
       [e.target.name]:
-        e.target.type === "checkbox" ? e.target.checked : e.target.value
+        e.target.type === "checkbox" ? e.target.checked : e.target.value,
     };
     validateChange(e);
     setFormState(newFormData);
