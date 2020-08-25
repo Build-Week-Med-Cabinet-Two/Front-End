@@ -10,6 +10,7 @@ import HeaderKS from "./components/HeaderKS";
 import RegistrationKS from "./components/RegistrationKS";
 import LoginKS from "./components/LoginKS";
 import UserData from "./components/UserData.js";
+import LandingPageKS from "./components/LandingPageKS";
 
 function App() {
   const [user, setUser] = useState({ username: null, token: null });
@@ -21,7 +22,7 @@ function App() {
         <Switch>
           <Route exact path="/">
             {user.username === null ? (
-              <p>new user home page here</p>
+              <LandingPageKS />
             ) : (
               <UserData user={user} />
             )}

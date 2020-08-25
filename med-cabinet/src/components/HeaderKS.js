@@ -1,11 +1,15 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "./HeaderKS.scss";
+import logo from "../logo.png";
 function HeaderKS(props) {
   return (
     <header>
       <Link to="/">
-        <h1>MedicineCabinet</h1>
+        <h1>
+          <img src={logo} id="headerLogo" alt="MedCabinet Logo" />
+          MedicineCabinet
+        </h1>
       </Link>
       <nav>
         {props.user.username === null ? (
