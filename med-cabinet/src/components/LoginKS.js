@@ -1,43 +1,52 @@
 import React, { useRef, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers";
+import axios from "axios";
 import * as yup from "yup";
 import "./LoginKS.scss";
 
 //name, email, password, zip code, b-day/age check (over 21)
 const schema = yup.object().shape({
-  email: yup
-    .string()
-    .email("↑ enter a valid email address")
-    .required("↑ enter your email address"),
-  password: yup.string().required("↑ enter a password"),
+  form: yup.string(),
+  username: yup.string().required("↑ enter your username"),
+  password: yup.string().required("↑ enter your password"),
 });
 
 function LoginKS(props) {
-  const { register, handleSubmit, errors } = useForm({
+  const { register, handleSubmit, setError, errors } = useForm({
     resolver: yupResolver(schema),
   });
   const onSubmit = (data) => {
-    console.log("submit");
-    console.log(data);
+    axios
+      .post("https://medcabinet2.herokuapp.com/auth/login/", {
+        username: data.username,
+        password: data.password,
+      })
+      .then((r) => {
+        if (r.data.token) {
+          props.setUser({ username: data.username, token: r.data.token });
+        } else {
+          setError("form", { type: "manual", message: "unknown error" });
+        }
+      });
   };
-  const emailRef = useRef();
-  useEffect(() => emailRef.current.focus(), []);
+  const usernameRef = useRef();
+  useEffect(() => usernameRef.current.focus(), []);
   return (
     <form id="loginForm" onSubmit={handleSubmit(onSubmit)}>
       <h2>log in</h2>
       <label htmlFor="email">
-        <p>your email:</p>
+        <p>username:</p>
         <input
-          id="email"
-          type="email"
-          name="email"
+          id="username"
+          type="text"
+          name="username"
           ref={(e) => {
             register(e);
-            emailRef.current = e;
+            usernameRef.current = e;
           }}
         ></input>
-        <p className="formError">{errors.email?.message}</p>
+        <p className="formError">{errors.username?.message}</p>
       </label>
       <label htmlFor="password">
         <p>your password:</p>

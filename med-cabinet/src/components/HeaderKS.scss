@@ -4,6 +4,11 @@ header {
   @include flexR();
   justify-content: space-between;
   padding: $sm;
+  a {
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+  }
   h1 {
     font-size: 1.2rem;
   }
