@@ -4,7 +4,9 @@ import "./App.scss";
 import HeaderKS from "./components/HeaderKS";
 import RegistrationKS from "./components/RegistrationKS";
 import LoginKS from "./components/LoginKS";
-import UserData from ".components/UserData.js";
+import PrivateRoute from './utils/PrivateRoute';
+// import UserData from ".components/UserData.js";
+
 
 function App() {
   return (
@@ -21,6 +23,8 @@ function App() {
           <Route path="/login">
             <LoginKS />
           </Route>
+          {/* <PrivateRoute exact path='/UserData' component={UserData} /> */}
+
         </Switch>
       </div>
     </Router>
