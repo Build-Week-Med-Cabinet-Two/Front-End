@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import * as yup from "yup";
 import axios from "axios";
-import "./UserDataStyle.css";
 
 export default function Form() {
   const initialFormState = {
@@ -9,7 +8,9 @@ export default function Form() {
     issue: "",
     effects: "",
     flavor: "",
-    intake: "",
+    strain: "",
+    type: "",
+    intake: ""
   };
 
   const [post, setPost] = useState([]);
@@ -27,7 +28,9 @@ export default function Form() {
     issue: yup.string().required("Must outline an issue"),
     effects: yup.string().required("Must detailed desired effects"),
     flavor: yup.string().required("Must state preferred flavor/s"),
-    intake: yup.string().required("State preferred intake methods"),
+    strain: yup.string().required("State preferred strain/s"),
+    type: yup.string().required("State preferred type/s"),
+    intake: yup.string().required("State preferred intake methods")
   });
 
   const validateChange = (e) => {
@@ -63,7 +66,9 @@ export default function Form() {
           issue: "",
           effects: "",
           flavor: "",
-          intake: "",
+          strain: "",
+          type: "",
+          intake: ""
         });
 
         setServerError(null);
@@ -79,7 +84,7 @@ export default function Form() {
     const newFormData = {
       ...formState,
       [e.target.name]:
-        e.target.type === "checkbox" ? e.target.checked : e.target.value,
+        e.target.type === "checkbox" ? e.target.checked : e.target.value
     };
     validateChange(e);
     setFormState(newFormData);
@@ -140,6 +145,30 @@ export default function Form() {
         {errors.flavor.length > 0 ? (
           <p className="error">{errors.flavor}</p>
         ) : null}
+      </label>
+
+      <label htmlFor="strain">
+        Preferred Strain
+        <textarea
+          name="strain"
+          placeholder="ex. Qush, Girl Scout cookie, Pineapple Qush, Headband"
+          onChange={inputChange}
+          value={formState.flavor}
+        />
+        {errors.strain.length > 0 ? (
+          <p className="error">{errors.strain}</p>
+        ) : null}
+      </label>
+
+      <label htmlFor="type">
+        Preferred Type
+        <textarea
+          name="type"
+          placeholder="ex. Indica, Hybrid, Sativa"
+          onChange={inputChange}
+          value={formState.type}
+        />
+        {errors.type.length > 0 ? <p className="error">{errors.type}</p> : null}
       </label>
 
       <label htmlFor="intake">
