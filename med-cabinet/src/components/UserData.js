@@ -122,7 +122,7 @@ export default function Form() {
       </label>
 
       <label htmlFor="effects">
-        Desired treatment Effects
+        Desired Treatment Effects
         <textarea
           name="effects"
           placeholder="ex. Relaxed, Sleepy, Uplifted, Happy, Euphoric"
@@ -143,7 +143,7 @@ export default function Form() {
           value={formState.flavor}
         />
         {errors.flavor.length > 0 ? (
-          <p className="error">{errors.flavor}</p>
+          <p className="error">{errors.strain}</p>
         ) : null}
       </label>
 
