@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import * as yup from "yup";
 import axios from "axios";
+import "./UserData.scss";
 
 export default function Form() {
   const initialFormState = {
@@ -8,7 +9,9 @@ export default function Form() {
     issue: "",
     effects: "",
     flavor: "",
-    intake: ""
+    strain: "",
+    type: "",
+    intake: "",
   };
 
   const [post, setPost] = useState([]);
@@ -26,7 +29,9 @@ export default function Form() {
     issue: yup.string().required("Must outline an issue"),
     effects: yup.string().required("Must detailed desired effects"),
     flavor: yup.string().required("Must state preferred flavor/s"),
-    intake: yup.string().required("State preferred intake methods")
+    strain: yup.string().required("State preferred strain/s"),
+    type: yup.string().required("State preferred type/s"),
+    intake: yup.string().required("State preferred intake methods"),
   });
 
   const validateChange = (e) => {
@@ -62,7 +67,9 @@ export default function Form() {
           issue: "",
           effects: "",
           flavor: "",
-          intake: ""
+          strain: "",
+          type: "",
+          intake: "",
         });
 
         setServerError(null);
@@ -78,14 +85,15 @@ export default function Form() {
     const newFormData = {
       ...formState,
       [e.target.name]:
-        e.target.type === "checkbox" ? e.target.checked : e.target.value
+        e.target.type === "checkbox" ? e.target.checked : e.target.value,
     };
     validateChange(e);
     setFormState(newFormData);
   };
 
   return (
-    <form onSubmit={submitForm}>
+    <form id="userDataForm" onSubmit={submitForm}>
+      <h2>What are you looking for?</h2>
       {serverError ? <p className="error">{serverError}</p> : null}
 
       <label htmlFor="zipCode">
@@ -106,6 +114,7 @@ export default function Form() {
         Your Medical Issues
         <textarea
           name="issue"
+          id="issue"
           placeholder="ex. Anxiety, Stress, Cancer, Back Pain, Migraines"
           onChange={inputChange}
           value={formState.issue}
@@ -116,9 +125,10 @@ export default function Form() {
       </label>
 
       <label htmlFor="effects">
-        Desired treatment Effects
+        Desired Treatment Effects
         <textarea
           name="effects"
+          id="effects"
           placeholder="ex. Relaxed, Sleepy, Uplifted, Happy, Euphoric"
           onChange={inputChange}
           value={formState.effects}
@@ -132,19 +142,47 @@ export default function Form() {
         Preferred Flavors
         <textarea
           name="flavor"
+          id="flavor"
           placeholder="ex. Flowery, Vanilla, Citrus, Pungent"
           onChange={inputChange}
           value={formState.flavor}
         />
         {errors.flavor.length > 0 ? (
-          <p className="error">{errors.flavor}</p>
+          <p className="error">{errors.strain}</p>
         ) : null}
+      </label>
+
+      <label htmlFor="strain">
+        Preferred Strain
+        <textarea
+          name="strain"
+          id="strain"
+          placeholder="ex. Qush, Girl Scout cookie, Pineapple Qush, Headband"
+          onChange={inputChange}
+          value={formState.flavor}
+        />
+        {errors.strain.length > 0 ? (
+          <p className="error">{errors.strain}</p>
+        ) : null}
+      </label>
+
+      <label htmlFor="type">
+        Preferred Type
+        <textarea
+          name="type"
+          id="type"
+          placeholder="ex. Indica, Hybrid, Sativa"
+          onChange={inputChange}
+          value={formState.type}
+        />
+        {errors.type.length > 0 ? <p className="error">{errors.type}</p> : null}
       </label>
 
       <label htmlFor="intake">
         Preferred method of intake/consumption.
         <textarea
           name="intake"
+          id="intake"
           placeholder="ex. Vape, Edibles, Smoke, Topical"
           onChange={inputChange}
           value={formState.intake}

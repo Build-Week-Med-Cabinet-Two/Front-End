@@ -2,10 +2,21 @@
 header {
   background-color: $c2;
   @include flexR();
+  flex-wrap: wrap;
   justify-content: space-between;
   padding: $sm;
+  a {
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+  }
   h1 {
-    font-size: 1.2rem;
+    @include flexR();
+    font-size: 2rem;
+    #headerLogo {
+      width: $xl;
+      margin-right: $sm;
+    }
   }
   nav {
     @include flexR();
