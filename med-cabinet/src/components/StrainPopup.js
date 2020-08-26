@@ -1,7 +1,18 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./StrainPopup.scss";
 export default function StrainPopup(props) {
   const { strain, ailment, effects, flavor, type, description } = props.strain;
+  const [isFavorite, setIsFavorite] = useState(false);
+  useEffect(() => {
+    if (
+      props.favorites.filter((favorite) => favorite.strain === strain).length >
+      0
+    ) {
+      setIsFavorite(true);
+    } else {
+      setIsFavorite(false);
+    }
+  }, [props.favorites, strain]);
   return (
     <div className="strainPopup" onClick={() => props.setModal(!props.modal)}>
       <div className="strainInfoBox" onClick={(e) => e.stopPropagation()}>
@@ -21,8 +32,25 @@ export default function StrainPopup(props) {
         <p>effects: {effects}</p>
         <p>flavor: {flavor}</p>
         <p>description: {description}</p>
-
-        <button>add to favorites</button>
+        {isFavorite ? (
+          <button
+            onClick={() => {
+              props.setFavorites([
+                ...props.favorites.filter((f) => f.strain !== strain),
+              ]);
+            }}
+          >
+            remove from favorites
+          </button>
+        ) : (
+          <button
+            onClick={() => {
+              props.setFavorites([...props.favorites, props.strain]);
+            }}
+          >
+            add to favorites
+          </button>
+        )}
       </div>
     </div>
   );

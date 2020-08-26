@@ -22,7 +22,7 @@ export default function ResultsList(props) {
           return { ...m, "perfect matches": [...m["perfect matches"], strain] };
         });
       }
-      if (matchCount === 2) {
+      if (matchCount === 3) {
         setMatches((m) => {
           return { ...m, "close matches": [...m["close matches"], strain] };
         });
@@ -43,7 +43,12 @@ export default function ResultsList(props) {
               </h3>
               <div className="strainsContainer">
                 {matches[matchType].map((result) => (
-                  <StrainCard strain={result} key={result.id} />
+                  <StrainCard
+                    strain={result}
+                    key={result.id}
+                    favorites={props.favorites}
+                    setFavorites={props.setFavorites}
+                  />
                 ))}
               </div>
             </Fragment>

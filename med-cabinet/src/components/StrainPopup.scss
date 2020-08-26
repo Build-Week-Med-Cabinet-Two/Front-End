@@ -12,6 +12,7 @@
   align-items: center;
   .strainInfoBox {
     @include flexC();
+    box-shadow: $xs $xs $sm $sm transparentize(black, 0.5);
     align-items: flex-start;
     h2 {
       @include flexR();

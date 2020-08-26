@@ -12,7 +12,11 @@ export default function StrainNavigator(props) {
   return (
     <div className="strainNavigator">
       <QueryForm setQuery={setQuery} query={query} />
-      <ResultsList query={query} />
+      <ResultsList
+        query={query}
+        favorites={props.favorites}
+        setFavorites={props.setFavorites}
+      />
     </div>
   );
 }

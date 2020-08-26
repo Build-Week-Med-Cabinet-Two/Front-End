@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   BrowserRouter as Router,
   Route,
@@ -12,16 +12,37 @@ import LoginKS from "./components/LoginKS";
 // import UserData from "./components/UserData.js";
 import StrainNavigator from "./components/StrainNavigator";
 import LandingPageKS from "./components/LandingPageKS";
+import Favorites from "./components/Favorites";
 
 function App() {
   const [user, setUser] = useState({ username: null, token: null });
+  const [favorites, setFavorites] = useState([]);
+  useEffect(() => {
+    const storedFavorites = JSON.parse(localStorage.getItem("favorites"));
+    if (storedFavorites !== null) {
+      setFavorites(storedFavorites);
+    }
+  }, []);
+  useEffect(() => {
+    localStorage.setItem("favorites", JSON.stringify(favorites));
+  }, [favorites]);
   return (
     <Router>
       <div className="App">
-        <HeaderKS user={user} setUser={setUser} />
+        <HeaderKS user={user} setUser={setUser} favorites={favorites} />
         <Switch>
           <Route exact path="/">
-            {user.username === null ? <LandingPageKS /> : <StrainNavigator />}
+            {user.username === null ? (
+              <LandingPageKS />
+            ) : (
+              <StrainNavigator
+                favorites={favorites}
+                setFavorites={setFavorites}
+              />
+            )}
+          </Route>
+          <Route path="/favorites">
+            <Favorites favorites={favorites} setFavorites={setFavorites} />
           </Route>
           <Route path="/register">
             {user.username === null ? (

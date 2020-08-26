@@ -12,7 +12,13 @@ export default function StrainCard(props) {
         {props.strain.strain}
       </div>
       {modal && (
-        <StrainPopup strain={props.strain} setModal={setModal} modal={modal} />
+        <StrainPopup
+          strain={props.strain}
+          setModal={setModal}
+          modal={modal}
+          favorites={props.favorites}
+          setFavorites={props.setFavorites}
+        />
       )}
     </>
   );
