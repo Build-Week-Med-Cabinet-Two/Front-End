@@ -1,34 +1,61 @@
-import React from "react";
+import React, { useState, useEffect, Fragment } from "react";
 import strainData from "../strainData";
+import StrainCard from "./StrainCard";
 import "./ResultsList.scss";
 export default function ResultsList(props) {
-  console.log(strainData[0]);
+  const [matches, setMatches] = useState({
+    "perfect matches": [],
+    "close matches": [],
+  });
+  useEffect(() => {
+    setMatches({ "perfect matches": [], "close matches": [] });
+    strainData.forEach((strain) => {
+      let matchCount = 0;
+      Object.keys(props.query).forEach((field) => {
+        const q = props.query[field].toLowerCase();
+        if (q.length > 2 && strain[field].toLowerCase().indexOf(q) > -1) {
+          matchCount++;
+        }
+      });
+      if (matchCount === 4) {
+        setMatches((m) => {
+          return { ...m, "perfect matches": [...m["perfect matches"], strain] };
+        });
+      }
+      if (matchCount === 2) {
+        setMatches((m) => {
+          return { ...m, "close matches": [...m["close matches"], strain] };
+        });
+      }
+    });
+  }, [props.query]);
 
-  const inputArray = Object.values(props.query);
-  const numberOfFieldsFilledIn = inputArray.filter((v) => v.length > 0).length;
-  const numberOfCharactersEntered = inputArray.join().length - 3;
-  const sufficientInput =
-    numberOfCharactersEntered > 7 && numberOfFieldsFilledIn > 1 ? true : false;
-  let queryMatches = [];
-  if (sufficientInput) {
-    const fields = Object.keys(props.query).filter(
-      (field) => props.query[field].length > 0
-    );
-    // strainData.forEach((strain) => {
-    //   let matchCount = 0;
-    //   fields.forEach((field) => {
-    //     if (props.query[field]strain[field])
-    //   });
-    // });
-  }
-  queryMatches = [...new Set(queryMatches)];
   return (
     <div className="resultsList">
-      <h2>results!</h2>
-      {sufficientInput ? (
-        queryMatches.map((id) => <p key={id}>{strainData[id].strain}</p>)
+      <h2>search results</h2>
+
+      {Object.keys(matches).map((matchType) => {
+        if (matches[matchType].length > 0) {
+          return (
+            <Fragment key={matchType}>
+              <h3>
+                {matchType} ({matches[matchType].length}):
+              </h3>
+              <div className="strainsContainer">
+                {matches[matchType].map((result) => (
+                  <StrainCard strain={result} key={result.id} />
+                ))}
+              </div>
+            </Fragment>
+          );
+        } else return null;
+      })}
+      {matches["perfect matches"].length === 0 &&
+      matches["close matches"].length === 0 &&
+      Object.values(props.query).join("").length > 0 ? (
+        <p>we couldn't find anything</p>
       ) : (
-        <p>insufficient information</p>
+        <p>complete the form to find the good stuff</p>
       )}
     </div>
   );

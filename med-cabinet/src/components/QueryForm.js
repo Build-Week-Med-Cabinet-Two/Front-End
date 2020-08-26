@@ -5,10 +5,10 @@ import { yupResolver } from "@hookform/resolvers";
 import * as yup from "yup";
 const schema = yup.object().shape({
   form: yup.string(),
-  ailment: yup.string(),
-  effects: yup.string(),
-  flavor: yup.string(),
-  type: yup.string(),
+  ailment: yup.string().required("⮙ enter an ailment"),
+  effects: yup.string().required("⮙ enter desired effects"),
+  flavor: yup.string().required("⮙ enter a flavor"),
+  type: yup.string().required("⮙ choose a type"),
 });
 export default function QueryForm(props) {
   const { register, handleSubmit, errors } = useForm({
@@ -18,7 +18,7 @@ export default function QueryForm(props) {
     props.setQuery(data);
   };
   return (
-    <form className="queryForm" onChange={handleSubmit(onSubmit)}>
+    <form className="queryForm" onSubmit={handleSubmit(onSubmit)}>
       <h2>what are looking for?</h2>
       {["ailment", "effects", "flavor", "type"].map((q) => {
         return (
@@ -31,10 +31,12 @@ export default function QueryForm(props) {
               autoComplete="off"
               ref={register}
             ></input>
+            <p className="formError">{errors[q]?.message}</p>
           </label>
         );
       })}
       <p className="formError">{errors.form?.message}</p>
+      <button type="submit">Search ⮚</button>
     </form>
   );
 }

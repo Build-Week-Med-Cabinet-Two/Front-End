@@ -1,0 +1,41 @@
+@import "../base.scss";
+.strainPopup {
+  position: fixed;
+  top: 0rem;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: transparentize(black, 0.6);
+  @include flexC();
+  justify-content: flex-start;
+  padding-top: 8rem;
+  align-items: center;
+  .strainInfoBox {
+    @include flexC();
+    align-items: flex-start;
+    h2 {
+      @include flexR();
+      justify-content: space-between;
+      .closeButton:hover {
+        cursor: pointer;
+      }
+    }
+    width: 60%;
+    max-width: 40rem;
+    background-color: $c2;
+    border-radius: $sm;
+    p {
+      padding: $sm;
+    }
+    .closeButton {
+      margin: 0;
+      padding: $xs $sm;
+      border-radius: $xs $sm $xs $xs;
+      background-color: $c2;
+      &:hover {
+        background-color: white;
+        color: $c2;
+      }
+    }
+  }
+}

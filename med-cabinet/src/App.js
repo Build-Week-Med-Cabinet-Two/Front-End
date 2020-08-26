@@ -21,8 +21,7 @@ function App() {
         <HeaderKS user={user} setUser={setUser} />
         <Switch>
           <Route exact path="/">
-            {/* TODO: change this to === after done building StrainNavigator  */}
-            {user.username !== null ? <LandingPageKS /> : <StrainNavigator />}
+            {user.username === null ? <LandingPageKS /> : <StrainNavigator />}
           </Route>
           <Route path="/register">
             {user.username === null ? (

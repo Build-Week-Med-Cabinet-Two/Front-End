@@ -3,5 +3,31 @@
 .resultsList {
   @include formBase();
   margin-left: $md;
-  flex-grow: 1;
+  flex: 1;
+  @media screen and (max-width: 500px) {
+    width: 100%;
+    max-width: unset;
+    min-width: unset;
+    margin-left: unset;
+  }
+  > h3 {
+    margin: $sm;
+    background: linear-gradient(to right, $c4, $c2);
+  }
+  .strainsContainer {
+    @include flexR();
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    .strainCard {
+      @include flexC();
+      margin: $sm;
+      padding: $sm;
+      background-color: transparentize($c4, 0.75);
+      border-radius: $sm;
+      &:hover {
+        background-color: $c4;
+        cursor: pointer;
+      }
+    }
+  }
 }
