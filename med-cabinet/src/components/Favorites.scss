@@ -2,6 +2,7 @@
 @import "./formBase.scss";
 .favoritesContainer {
   @include formBase();
+  max-width: 60rem;
   .strainsContainer {
     @include flexR();
     flex-wrap: wrap;

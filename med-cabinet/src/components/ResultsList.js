@@ -59,9 +59,10 @@ export default function ResultsList(props) {
       matches["close matches"].length === 0 &&
       Object.values(props.query).join("").length > 0 ? (
         <p>we couldn't find anything</p>
-      ) : (
+      ) : null}
+      {Object.values(props.query).join("").length === 0 ? (
         <p>complete the form to find the good stuff</p>
-      )}
+      ) : null}
     </div>
   );
 }

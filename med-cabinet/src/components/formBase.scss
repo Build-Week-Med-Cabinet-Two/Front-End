@@ -18,7 +18,8 @@
     font-size: 1.2rem;
   }
   input,
-  textarea {
+  textarea,
+  select {
     margin-top: $sm;
     width: 100%;
   }
@@ -34,11 +35,16 @@
   & > .formError {
     padding: $sm;
   }
-  button {
+  button:not(.flatButton) {
     border: none;
     font-family: $font1;
     align-self: flex-end;
     @include button();
+    margin: $sm;
+  }
+  button.flatButton {
+    border: none;
+    font-family: $font1;
     margin: $sm;
   }
   button:disabled {

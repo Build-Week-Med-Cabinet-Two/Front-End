@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import "./StrainPopup.scss";
 export default function StrainPopup(props) {
   const { strain, ailment, effects, flavor, type, description } = props.strain;
@@ -13,6 +13,20 @@ export default function StrainPopup(props) {
       setIsFavorite(false);
     }
   }, [props.favorites, strain]);
+
+  const keyHandler = useCallback(
+    (e) => {
+      e.key === "Escape" && props.setModal(false);
+    },
+    [props]
+  );
+  useEffect(() => {
+    window.addEventListener("keydown", keyHandler);
+    return () => {
+      window.removeEventListener("keydown", keyHandler);
+    };
+  }, [keyHandler]);
+
   return (
     <div className="strainPopup" onClick={() => props.setModal(!props.modal)}>
       <div className="strainInfoBox" onClick={(e) => e.stopPropagation()}>

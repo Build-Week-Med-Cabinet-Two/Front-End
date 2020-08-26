@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers";
 import axios from "axios";
@@ -16,13 +16,16 @@ function LoginKS(props) {
   const { register, handleSubmit, setError, errors } = useForm({
     resolver: yupResolver(schema),
   });
+  const [submitButtonEnabled, setSubmitButtonEnabled] = useState(true);
   const onSubmit = (data) => {
+    setSubmitButtonEnabled(false);
     axios
       .post("https://medcabinet2.herokuapp.com/auth/login/", {
         username: data.username,
         password: data.password,
       })
       .then((r) => {
+        setSubmitButtonEnabled(true);
         if (r.data.token) {
           props.setUser({ username: data.username, token: r.data.token });
         } else {
@@ -30,6 +33,7 @@ function LoginKS(props) {
         }
       })
       .catch((e) => {
+        setSubmitButtonEnabled(true);
         setError("form", { type: "manual", message: "server error" });
       });
   };
@@ -64,7 +68,13 @@ function LoginKS(props) {
         <p className="formError">{errors.password?.message}</p>
       </label>
       <p className="formError">{errors.form?.message}</p>
-      <button type="submit">log in!</button>
+      {submitButtonEnabled ? (
+        <button type="submit">log in!</button>
+      ) : (
+        <button type="submit" disabled>
+          ...hang on
+        </button>
+      )}
     </form>
   );
 }

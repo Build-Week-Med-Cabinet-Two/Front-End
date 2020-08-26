@@ -19,6 +19,7 @@ function HeaderKS(props) {
           </>
         ) : (
           <>
+            <Link to="/">Strain Finder</Link>
             <Link to="/favorites">favorites ({props.favorites.length})</Link>
             <Link
               to="/"

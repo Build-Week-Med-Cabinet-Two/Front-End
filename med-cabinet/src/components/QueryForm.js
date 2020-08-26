@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./QueryForm.scss";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers";
@@ -17,10 +17,11 @@ export default function QueryForm(props) {
   const onSubmit = (data) => {
     props.setQuery(data);
   };
+  useEffect(() => document.querySelector("#ailment").focus(), []);
   return (
     <form className="queryForm" onSubmit={handleSubmit(onSubmit)}>
       <h2>what are looking for?</h2>
-      {["ailment", "effects", "flavor", "type"].map((q) => {
+      {["ailment", "effects", "flavor"].map((q) => {
         return (
           <label htmlFor={q} key={q}>
             <p>{q}</p>
@@ -35,6 +36,14 @@ export default function QueryForm(props) {
           </label>
         );
       })}
+      <label htmlFor="type" key="type">
+        <p>type:</p>
+        <select id="type" name="type" ref={register}>
+          <option value="indica">indica</option>
+          <option value="sativa">sativa</option>
+          <option value="hybrid">hybrid</option>
+        </select>
+      </label>
       <p className="formError">{errors.form?.message}</p>
       <button type="submit">Search ⮚</button>
     </form>

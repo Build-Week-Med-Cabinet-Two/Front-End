@@ -1,16 +1,17 @@
 import React, { useState } from "react";
 import StrainPopup from "./StrainPopup";
+import "./StrainCard.scss";
 export default function StrainCard(props) {
   const [modal, setModal] = useState(false);
   return (
     <>
-      <div
+      <button
         key={props.strain.id}
-        className="strainCard"
+        className="strainCard flatButton"
         onClick={() => setModal(!modal)}
       >
         {props.strain.strain}
-      </div>
+      </button>
       {modal && (
         <StrainPopup
           strain={props.strain}
