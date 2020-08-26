@@ -9,6 +9,7 @@ import "./App.scss";
 import HeaderKS from "./components/HeaderKS";
 import RegistrationKS from "./components/RegistrationKS";
 import LoginKS from "./components/LoginKS";
+import PrivateRoute from './utils/PrivateRoute';
 import UserData from "./components/UserData.js";
 import LandingPageKS from "./components/LandingPageKS";
 
