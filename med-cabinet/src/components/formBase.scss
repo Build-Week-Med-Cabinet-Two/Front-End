@@ -1,7 +1,9 @@
 @import "../base.scss";
 @mixin formBase() {
   @include flexC();
-  align-items: flex-start;
+  justify-content: stretch;
+  align-content: stretch;
+  align-items: stretch;
   background-color: $c2;
   margin: $md auto;
   box-shadow: $xs $xs $xs 0 transparentize(black, 0.5);
@@ -15,22 +17,36 @@
     border-bottom: 1px solid transparentize(black, 0.5);
     font-size: 1.2rem;
   }
-  input {
+  input,
+  textarea {
     margin-top: $sm;
+    width: 100%;
   }
   label {
     @include flexC();
     padding: $sm;
     align-items: flex-start;
-    .formError {
-      color: #933;
-      font-weight: bold;
-    }
+  }
+  .formError {
+    color: #933;
+    font-weight: bold;
+  }
+  & > .formError {
+    padding: $sm;
   }
   button {
     border: none;
+    font-family: $font1;
     align-self: flex-end;
     @include button();
     margin: $sm;
+  }
+  button:disabled {
+    background-color: desaturate($c3, 20);
+    color: darken($c5, 50);
+    box-shadow: unset;
+    &:hover {
+      cursor: default;
+    }
   }
 }

@@ -1,0 +1,36 @@
+@import "../base.scss";
+.landingPage {
+  @include flexC();
+  margin-top: $sm;
+  background: linear-gradient(to bottom, $c2 0%, $c3 20%, $c3);
+  border-radius: $sm;
+  align-items: flex-start;
+  align-self: center;
+  padding: $sm;
+  max-width: 40rem;
+  h2 {
+    font-size: 1.6rem;
+    margin-bottom: $sm;
+  }
+  h3 {
+    font-size: 1.4rem;
+  }
+  p {
+    font-size: $md;
+  }
+  #kushmanImage {
+    width: 20rem;
+    align-self: center;
+    margin-top: $sm;
+  }
+  .ctaLink {
+    margin: $sm auto;
+    text-align: center;
+    text-decoration: none;
+    color: white;
+    padding: $sm;
+    &:hover {
+      background: radial-gradient($c5 0%, $c3 70%, $c3);
+    }
+  }
+}
