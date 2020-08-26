@@ -42,7 +42,11 @@ function App() {
             )}
           </Route>
           <Route path="/favorites">
-            <Favorites favorites={favorites} setFavorites={setFavorites} />
+            {user.username === null ? (
+              <Redirect to="/" />
+            ) : (
+              <Favorites favorites={favorites} setFavorites={setFavorites} />
+            )}
           </Route>
           <Route path="/register">
             {user.username === null ? (

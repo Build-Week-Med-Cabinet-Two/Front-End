@@ -1,5 +1,6 @@
 @import "../base.scss";
 @import "./formBase.scss";
+@import "./strainsContainer.scss";
 .resultsList {
   @include formBase();
   margin-left: $md;
@@ -14,11 +15,7 @@
     margin: $sm;
     background: linear-gradient(to right, $c4, $c2);
   }
-  .strainsContainer {
-    @include flexR();
-    flex-wrap: wrap;
-    justify-content: flex-start;
-  }
+  @include strainsContainer();
   p {
     padding: $sm;
   }

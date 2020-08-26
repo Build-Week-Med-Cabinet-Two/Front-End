@@ -1,24 +1,10 @@
 @import "../base.scss";
 @import "./formBase.scss";
+@import "./strainsContainer.scss";
 .favoritesContainer {
   @include formBase();
   max-width: 60rem;
-  .strainsContainer {
-    @include flexR();
-    flex-wrap: wrap;
-    justify-content: flex-start;
-    .strainCard {
-      @include flexC();
-      margin: $sm;
-      padding: $sm;
-      background-color: transparentize($c4, 0.75);
-      border-radius: $sm;
-      &:hover {
-        background-color: $c4;
-        cursor: pointer;
-      }
-    }
-  }
+  @include strainsContainer();
   p {
     padding: $sm;
   }
