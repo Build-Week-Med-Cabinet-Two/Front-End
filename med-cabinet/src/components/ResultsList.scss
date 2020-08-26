@@ -1,0 +1,7 @@
+@import "../base.scss";
+@import "./formBase.scss";
+.resultsList {
+  @include formBase();
+  margin-left: $md;
+  flex-grow: 1;
+}

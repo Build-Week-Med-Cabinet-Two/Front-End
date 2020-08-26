@@ -9,23 +9,20 @@ import "./App.scss";
 import HeaderKS from "./components/HeaderKS";
 import RegistrationKS from "./components/RegistrationKS";
 import LoginKS from "./components/LoginKS";
-import UserData from "./components/UserData.js";
+// import UserData from "./components/UserData.js";
+import StrainNavigator from "./components/StrainNavigator";
 import LandingPageKS from "./components/LandingPageKS";
 
 function App() {
   const [user, setUser] = useState({ username: null, token: null });
-  console.log(user);
   return (
     <Router>
       <div className="App">
         <HeaderKS user={user} setUser={setUser} />
         <Switch>
           <Route exact path="/">
-            {user.username === null ? (
-              <LandingPageKS />
-            ) : (
-              <UserData user={user} />
-            )}
+            {/* TODO: change this to === after done building StrainNavigator  */}
+            {user.username !== null ? <LandingPageKS /> : <StrainNavigator />}
           </Route>
           <Route path="/register">
             {user.username === null ? (

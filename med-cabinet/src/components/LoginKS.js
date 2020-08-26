@@ -38,12 +38,13 @@ function LoginKS(props) {
   return (
     <form id="loginForm" onSubmit={handleSubmit(onSubmit)}>
       <h2>log in</h2>
-      <label htmlFor="email">
+      <label htmlFor="username">
         <p>username:</p>
         <input
           id="username"
           type="text"
           name="username"
+          autoComplete="username"
           ref={(e) => {
             register(e);
             usernameRef.current = e;
@@ -57,6 +58,7 @@ function LoginKS(props) {
           id="password"
           type="password"
           name="password"
+          autoComplete="current-password"
           ref={register}
         ></input>
         <p className="formError">{errors.password?.message}</p>
