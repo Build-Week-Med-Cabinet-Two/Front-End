@@ -8,14 +8,16 @@ export default function Favorites(props) {
       {props.favorites.length === 0 && (
         <p>you don't have any saved favorites</p>
       )}
-      {props.favorites.map((f) => (
-        <StrainCard
-          key={f.strain}
-          strain={f}
-          favorites={props.favorites}
-          setFavorites={props.setFavorites}
-        />
-      ))}
+      <div className="strainsContainer">
+        {props.favorites.map((f) => (
+          <StrainCard
+            key={f.strain}
+            strain={f}
+            favorites={props.favorites}
+            setFavorites={props.setFavorites}
+          />
+        ))}
+      </div>
     </div>
   );
 }
