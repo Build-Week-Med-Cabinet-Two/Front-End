@@ -159,7 +159,7 @@ export default function Form() {
           id="strain"
           placeholder="ex. Qush, Girl Scout cookie, Pineapple Qush, Headband"
           onChange={inputChange}
-          value={formState.flavor}
+          value={formState.strain}
         />
         {errors.strain.length > 0 ? (
           <p className="error">{errors.strain}</p>
