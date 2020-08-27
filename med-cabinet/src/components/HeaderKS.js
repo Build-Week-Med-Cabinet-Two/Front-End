@@ -16,6 +16,9 @@ function HeaderKS(props) {
           <>
             <Link to="/register">register</Link>
             <Link to="/login">log in</Link>
+            <Link to="/recommendations">Recommendations</Link>
+            <Link to="/saved">Saved List</Link>
+          
           </>
         ) : (
           <Link
