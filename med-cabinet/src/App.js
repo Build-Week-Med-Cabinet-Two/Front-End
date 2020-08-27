@@ -1,10 +1,5 @@
 import React, { useState } from "react";
-import {
-  BrowserRouter as Router,
-  Route,
-  Switch,
-  Redirect,
-} from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
 import "./App.scss";
 import HeaderKS from "./components/HeaderKS";
 import RegistrationKS from "./components/RegistrationKS";
@@ -42,7 +37,7 @@ function App() {
               <Redirect to="/" />
             )}
           </Route>
-          {/* <PrivateRoute exact path='/UserData' component={UserData} /> */}
+          <PrivateRoute exact path='/UserData' component={UserData} />
 
         </Switch>
       </div>
@@ -51,24 +46,3 @@ function App() {
 }
 
 export default App;
-
-// import React from "react";
-// import { BrowserRouter as Router, Route } from "react-router-dom";
-
-// import Login from "./components/Login";
-// import PrivateRoute from "../utils/PrivateRoute";
-// //import DataForm from ".components/DataForm";
-
-// function App() {
-//   return (
-//     <Router>
-//       <div className="App">
-//         <Route exact path="/" component={Login} />
-
-//         <PrivateRoute exact path='/protected' component={} />
-//       </div>
-//     </Router>
-//   );
-// }
-
-// export default App;
