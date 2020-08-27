@@ -62,7 +62,7 @@ function Recommendations({ addToSavedList, setRecList }) {
 
   return (
     <div className="save-wrapper">
-      <MovieCard movie={Recommendations} />
+      {/* <MovieCard movie={Recommendations} /> */}
 
       <div className="save-button" onClick={saveRecommendations}>
         Save
