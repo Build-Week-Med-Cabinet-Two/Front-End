@@ -19,7 +19,7 @@ const UpdateRecommendations = props => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/api/movies/${id}`)
+      .get(`strainapi.evanbusse.com/API_KEY/strains/data/desc/STRAIN_ID`)
       .then(res => setRecommendations(res.data))
       .catch(err =>
         console.error(
@@ -50,7 +50,7 @@ const UpdateRecommendations = props => {
     e.preventDefault();
     // make a PUT request to edit the item
     axios
-      .put(`http://localhost:5000/api/movies/${movie.id}`, movie)
+      .put(`strainapi.evanbusse.com/API_KEY/strains/data/desc/STRAIN_ID`, recommendations)
       .then(res => {
       const newRecList = props.recommendations.map(rec => {
         if (rec.id === res.data.id) {
