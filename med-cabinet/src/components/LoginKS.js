@@ -1,9 +1,11 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers";
 import axios from "axios";
 import * as yup from "yup";
 import "./LoginKS.scss";
+import { useHistory } from 'react-router-dom';
+import axiosWithAuth from '../utils/axiosWithAuth'
 
 //name, email, password, zip code, b-day/age check (over 21)
 const schema = yup.object().shape({
