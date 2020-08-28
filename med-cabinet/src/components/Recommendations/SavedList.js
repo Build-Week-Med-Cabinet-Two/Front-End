@@ -20,9 +20,7 @@ function SavedList({ list }) {
         <Link to="/">Home</Link>
       </div>
     </div>
-    <div>
-      Testing: Saved List
-    </div>
+    
   );
 }
 
