@@ -10,42 +10,59 @@ import HeaderKS from "./components/HeaderKS";
 import RegistrationKS from "./components/RegistrationKS";
 import LoginKS from "./components/LoginKS";
 // import UserData from "./components/UserData.js";
-import StrainNavigator from "./components/StrainNavigator";
 import LandingPageKS from "./components/LandingPageKS";
-import Favorites from "./components/Favorites";
+import MyCollections from "./components/MyCollections";
 
 function App() {
   const [user, setUser] = useState({ username: null, token: null });
-  const [favorites, setFavorites] = useState([]);
   useEffect(() => {
-    const storedFavorites = JSON.parse(localStorage.getItem("favorites"));
-    if (storedFavorites !== null) {
-      setFavorites(storedFavorites);
+    if (
+      user.token === null &&
+      localStorage.getItem("token") &&
+      localStorage.getItem("username")
+    ) {
+      setUser({
+        username: localStorage.getItem("username"),
+        token: localStorage.getItem("token"),
+      });
     }
-  }, []);
-  useEffect(() => {
-    localStorage.setItem("favorites", JSON.stringify(favorites));
-  }, [favorites]);
+  }, [user]);
   return (
+    /* todo:
+    AVAILABLE INTAKES: "Vape", "Edible", "Smoke", "Topical"
+    AVAILABLE TYPES: "Indica", "Sativa", "Hybrid"
+    https://medcabinet2.herokuapp.com/
+
+    CREATE a collection of recommendations:
+      name your collection: -> "listName"
+      "intakes": oneOf(["Vape", "Edible", "Smoke", "Topical"]),
+      "types": oneOf["Indica", "Sativa", "Hybrid"],
+      "issues": "optional user inputed issue(s)",
+      "strain": "optional user inputed strain(s)",
+      "effect": "optional user inputed effect(s)",
+      "flavor": "optional user inputed flavor(s)"
+
+    GET list of lists for user (display as "my collections")
+
+    logged in homepage layout:
+      "my collections" panel with cards for each saved collection and a "create new collection" button in the shape of a card
+        create new collection button pops up a modal with a form
+      clicking on a collection opens a modal with strain cards that are expandable
+
+    --find out what happens if the token expired (optional/last)
+
+
+
+    */
     <Router>
       <div className="App">
-        <HeaderKS user={user} setUser={setUser} favorites={favorites} />
+        <HeaderKS user={user} setUser={setUser} />
         <Switch>
           <Route exact path="/">
             {user.username === null ? (
               <LandingPageKS />
             ) : (
-              <StrainNavigator
-                favorites={favorites}
-                setFavorites={setFavorites}
-              />
-            )}
-          </Route>
-          <Route path="/favorites">
-            {user.username === null ? (
-              <Redirect to="/" />
-            ) : (
-              <Favorites favorites={favorites} setFavorites={setFavorites} />
+              <MyCollections user={user} />
             )}
           </Route>
           <Route path="/register">

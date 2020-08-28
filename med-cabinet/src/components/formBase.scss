@@ -46,6 +46,13 @@
     border: none;
     font-family: $font1;
     margin: $sm;
+    border-radius: $sm;
+    padding: $sm;
+    background-color: transparentize($c4, 0.75);
+    &:hover {
+      background-color: $c4;
+      cursor: pointer;
+    }
   }
   button:disabled {
     background-color: desaturate($c3, 20);

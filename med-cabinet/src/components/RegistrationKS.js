@@ -56,13 +56,18 @@ function RegistrationKS(props) {
         username: data.username,
         email: data.email,
         password: data.password,
+        zipcode: data.zipcode,
+        birthDate: data.birthDate,
       })
       .then((r) => {
         if (r.status === 201 && r.data.token && r.data.data.username) {
+          console.log(r);
           props.setUser({
             username: r.data.data.username,
             token: r.data.token,
           });
+          localStorage.setItem("token", r.data.token);
+          localStorage.setItem("username", r.data.data.username);
         } else {
           setError("form", { type: "manual", message: "unknown error" });
           setSubmitButtonEnabled(true);

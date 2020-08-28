@@ -1,13 +1,10 @@
-import axios from 'axios';
+import axios from "axios";
 
-export const AxiosWithAuth = () =>{
-    const token = localStorage.getItem('token')
-    return axios.create({
-        baseURL:'https://medcabinet2.herokuapp.com/',
-        headers: {
-            Authorization: token
-        }
-    });
-};
+export const AxiosWithAuth = axios.create({
+  baseURL: "https://medcabinet2.herokuapp.com/",
+  headers: {
+    Authorization: `bearer ${localStorage.getItem("token")}`,
+  },
+});
 
 export default AxiosWithAuth;

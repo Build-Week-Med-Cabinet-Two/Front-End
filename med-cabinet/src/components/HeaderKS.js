@@ -19,11 +19,13 @@ function HeaderKS(props) {
           </>
         ) : (
           <>
-            <Link to="/">Strain Finder</Link>
-            <Link to="/favorites">favorites ({props.favorites.length})</Link>
             <Link
               to="/"
-              onClick={() => props.setUser({ username: null, token: null })}
+              onClick={() => {
+                localStorage.removeItem("token");
+                localStorage.removeItem("username");
+                props.setUser({ username: null, token: null });
+              }}
             >
               logout ({props.user.username})
             </Link>

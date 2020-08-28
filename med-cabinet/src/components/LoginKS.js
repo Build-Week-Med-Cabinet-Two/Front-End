@@ -28,6 +28,8 @@ function LoginKS(props) {
         setSubmitButtonEnabled(true);
         if (r.data.token) {
           props.setUser({ username: data.username, token: r.data.token });
+          localStorage.setItem("token", r.data.token);
+          localStorage.setItem("username", data.username);
         } else {
           setError("form", { type: "manual", message: "unknown error" });
         }
