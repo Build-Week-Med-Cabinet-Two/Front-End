@@ -56,7 +56,14 @@ export default function MyCollections(props) {
               setPopup({
                 visible: true,
                 title: `Collection: ${list.listName}`,
-                component: <DisplayList listName={list.listName} />,
+                component: (
+                  <DisplayList
+                    listName={list.listName}
+                    exitPopup={exitPopup}
+                    lists={lists}
+                    setLists={setLists}
+                  />
+                ),
               })
             }
           >
