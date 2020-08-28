@@ -5,8 +5,6 @@ import { useHistory } from 'react-router-dom';
 import axiosWithAuth from "../utils/axiosWithAuth";
 // import * as yup from "yup";
 import "./LoginKS.scss";
-import { useHistory } from 'react-router-dom';
-import axiosWithAuth from '../utils/axiosWithAuth'
 
 //name, email, password, zip code, b-day/age check (over 21)
 // const schema = yup.object().shape({

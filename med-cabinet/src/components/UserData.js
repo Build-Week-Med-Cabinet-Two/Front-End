@@ -5,7 +5,6 @@ import "./UserData.scss";
 
 export default function Form() {
   const initialFormState = {
-    zipCode: "",
     issue: "",
     effects: "",
     flavor: "",
@@ -25,7 +24,6 @@ export default function Form() {
   const [errors, setErrors] = useState(initialFormState);
 
   const formSchema = yup.object().shape({
-    zipCode: yup.number().required().min(5),
     issue: yup.string().required("Must outline an issue"),
     effects: yup.string().required("Must detailed desired effects"),
     flavor: yup.string().required("Must state preferred flavor/s"),
@@ -63,7 +61,6 @@ export default function Form() {
         setPost(response.data);
 
         setFormState({
-          zipCode: "",
           issue: "",
           effects: "",
           flavor: "",
@@ -95,20 +92,7 @@ export default function Form() {
     <form id="userDataForm" onSubmit={submitForm}>
       <h2>What are you looking for?</h2>
       {serverError ? <p className="error">{serverError}</p> : null}
-
-      <label htmlFor="zipCode">
-        Zipcode
-        <input
-          id="zipCode"
-          type="number"
-          name="zipCode"
-          placeholder="Enter Zip Code"
-          onChange={inputChange}
-          value={formState.zipcode}
-        />
-        {errors.zipCode.length > 0 ? (
-          <p className="error">{errors.zipCode} </p>
-        ) : null}
+     
       </label>
       <label htmlFor="issue">
         Your Medical Issues
@@ -168,25 +152,24 @@ export default function Form() {
 
       <label htmlFor="type">
         Preferred Type
-        <textarea
-          name="type"
-          id="type"
-          placeholder="ex. Indica, Hybrid, Sativa"
-          onChange={inputChange}
-          value={formState.type}
-        />
+        <select id="type" name="type" onChange={inputChange}>
+          <option value="">--Please choose an option--</option>
+          <option value="Indica">Indica</option>
+          <option value="Sativa">Sativa</option>
+          <option value="Hybrid">Hybrid</option>
+        </select>
         {errors.type.length > 0 ? <p className="error">{errors.type}</p> : null}
       </label>
 
       <label htmlFor="intake">
         Preferred method of intake/consumption.
-        <textarea
-          name="intake"
-          id="intake"
-          placeholder="ex. Vape, Edibles, Smoke, Topical"
-          onChange={inputChange}
-          value={formState.intake}
-        />
+        <select id="intake" name="intake" onChange={inputChange}>
+          <option value="">--Please choose an option--</option>
+          <option value="Vape">Indica</option>
+          <option value="Edible">Sativa</option>
+          <option value="Smoke">Hybrid</option>
+          <option value="Smoke">Topical</option>
+        </select>
         {errors.intake.length > 0 ? (
           <p className="error">{errors.intake}</p>
         ) : null}
