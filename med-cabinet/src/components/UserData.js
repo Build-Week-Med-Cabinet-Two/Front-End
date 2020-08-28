@@ -93,6 +93,7 @@ export default function Form() {
       <h2>What are you looking for?</h2>
       {serverError ? <p className="error">{serverError}</p> : null}
      
+
        <label htmlFor="issue">
         Your Medical Issues
         <textarea
