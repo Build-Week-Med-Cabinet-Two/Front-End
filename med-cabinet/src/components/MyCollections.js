@@ -14,11 +14,11 @@ export default function MyCollections(props) {
   const exitPopup = () =>
     setPopup({ visible: false, title: "", component: null });
   useEffect(() => {
-    axiosWithAuth
+    axiosWithAuth(props.user.token)
       .get("/users/lists")
       .then((r) => setLists(r.data))
       .catch((e) => console.log(e));
-  }, []);
+  }, [props.user.token]);
   return (
     <div className="myCollections">
       {popup.visible && (
@@ -41,6 +41,7 @@ export default function MyCollections(props) {
                   exitPopup={exitPopup}
                   lists={lists}
                   setLists={setLists}
+                  user={props.user}
                 />
               ),
             })
@@ -62,6 +63,7 @@ export default function MyCollections(props) {
                     exitPopup={exitPopup}
                     lists={lists}
                     setLists={setLists}
+                    user={props.user}
                   />
                 ),
               })

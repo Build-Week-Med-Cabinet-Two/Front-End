@@ -50,7 +50,6 @@ function RegistrationKS(props) {
   const [submitButtonEnabled, setSubmitButtonEnabled] = useState(true);
   const onSubmit = (data) => {
     setSubmitButtonEnabled(false);
-    console.log("submit");
     axios
       .post("https://medcabinet2.herokuapp.com/auth/register/", {
         username: data.username,
@@ -61,7 +60,6 @@ function RegistrationKS(props) {
       })
       .then((r) => {
         if (r.status === 201 && r.data.token && r.data.data.username) {
-          console.log(r);
           props.setUser({
             username: r.data.data.username,
             token: r.data.token,
@@ -80,106 +78,107 @@ function RegistrationKS(props) {
         });
         setSubmitButtonEnabled(true);
       });
-    console.log(data.username);
   };
   const nameRef = useRef();
   useEffect(() => {
     nameRef.current.focus();
   }, []);
   return (
-    <form id="registrationForm" onSubmit={handleSubmit(onSubmit)}>
+    <div id="registrationForm">
       <h2>register as a new user</h2>
       {/* name, email, password, zip code, b-day/age check (over 21) */}
-      <label htmlFor="name">
-        <p>your name:</p>
-        <input
-          id="name"
-          type="text"
-          name="name"
-          autoComplete="name"
-          ref={(e) => {
-            register(e);
-            nameRef.current = e; // you can still assign to ref
-          }}
-        ></input>
-        <p className="formError">{errors.name?.message}</p>
-      </label>
-      <label htmlFor="email">
-        <p>email address:</p>
-        <input
-          id="email"
-          type="email"
-          name="email"
-          ref={register}
-          autoComplete="email"
-        ></input>
-        <p className="formError">{errors.email?.message}</p>
-      </label>
-      <label htmlFor="zipcode">
-        <p>your zip code:</p>
-        <input
-          id="zipcode"
-          type="text"
-          name="zipcode"
-          ref={register}
-          autoComplete="postal-code"
-        ></input>
-        <p className="formError">{errors.zipcode?.message}</p>
-      </label>
-      <label htmlFor="username">
-        <p>choose a username:</p>
-        <input
-          id="username"
-          type="text"
-          name="username"
-          ref={register}
-          autoComplete="username"
-        ></input>
-        <p className="formError">{errors.username?.message}</p>
-      </label>
-      <label htmlFor="password">
-        <p>create a password:</p>
-        <input
-          id="password"
-          type="password"
-          name="password"
-          autoComplete="new-password"
-          ref={register}
-        ></input>
-        <p className="formError">{errors.password?.message}</p>
-      </label>
-      <label htmlFor="passwordConfirm">
-        <p>confirm password:</p>
-        <input
-          id="passwordConfirm"
-          type="password"
-          name="passwordConfirm"
-          autoComplete="off"
-          ref={register}
-        ></input>
-        <p className="formError">{errors.passwordConfirm?.message}</p>
-      </label>
-      <label htmlFor="birthDate">
-        <p>your birthdate:</p>
-        <input
-          id="birthDate"
-          type="date"
-          name="birthDate"
-          autoComplete="bday"
-          ref={register}
-          defaultValue={undefined}
-        ></input>
-        <p className="formError">{errors.birthDate?.message}</p>
-      </label>
-      <p className="formError">{errors.form?.message}</p>
-      {submitButtonEnabled ? (
-        <button type="submit">register!</button>
-      ) : (
-        <button type="submit" disabled>
-          submitting ...
-        </button>
-      )}
-    </form>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <label htmlFor="name">
+          <p>your name:</p>
+          <input
+            id="name"
+            type="text"
+            name="name"
+            autoComplete="name"
+            ref={(e) => {
+              register(e);
+              nameRef.current = e; // you can still assign to ref
+            }}
+          ></input>
+          <p className="formError">{errors.name?.message}</p>
+        </label>
+        <label htmlFor="email">
+          <p>email address:</p>
+          <input
+            id="email"
+            type="email"
+            name="email"
+            ref={register}
+            autoComplete="email"
+          ></input>
+          <p className="formError">{errors.email?.message}</p>
+        </label>
+        <label htmlFor="zipcode">
+          <p>your zip code:</p>
+          <input
+            id="zipcode"
+            type="text"
+            name="zipcode"
+            ref={register}
+            autoComplete="postal-code"
+          ></input>
+          <p className="formError">{errors.zipcode?.message}</p>
+        </label>
+        <label htmlFor="username">
+          <p>choose a username:</p>
+          <input
+            id="username"
+            type="text"
+            name="username"
+            ref={register}
+            autoComplete="username"
+          ></input>
+          <p className="formError">{errors.username?.message}</p>
+        </label>
+        <label htmlFor="password">
+          <p>create a password:</p>
+          <input
+            id="password"
+            type="password"
+            name="password"
+            autoComplete="new-password"
+            ref={register}
+          ></input>
+          <p className="formError">{errors.password?.message}</p>
+        </label>
+        <label htmlFor="passwordConfirm">
+          <p>confirm password:</p>
+          <input
+            id="passwordConfirm"
+            type="password"
+            name="passwordConfirm"
+            autoComplete="off"
+            ref={register}
+          ></input>
+          <p className="formError">{errors.passwordConfirm?.message}</p>
+        </label>
+        <label htmlFor="birthDate">
+          <p>your birthdate:</p>
+          <input
+            id="birthDate"
+            type="date"
+            name="birthDate"
+            autoComplete="bday"
+            ref={register}
+            defaultValue={undefined}
+          ></input>
+          <p className="formError">{errors.birthDate?.message}</p>
+        </label>
+        <p className="formError">{errors.form?.message}</p>
+        {submitButtonEnabled ? (
+          <button type="submit">register!</button>
+        ) : (
+          <button type="submit" disabled>
+            submitting ...
+          </button>
+        )}
+      </form>
+    </div>
   );
 }
 export default RegistrationKS;

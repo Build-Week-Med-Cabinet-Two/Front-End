@@ -3,4 +3,12 @@
 #loginForm {
   @include formBase();
   max-width: 20rem;
+  form {
+    display: flex;
+    flex-direction: column;
+    justify-content: stretch;
+  }
+  button {
+    align-self: flex-end;
+  }
 }

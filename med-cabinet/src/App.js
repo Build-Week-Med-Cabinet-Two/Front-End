@@ -28,32 +28,6 @@ function App() {
     }
   }, [user]);
   return (
-    /* todo:
-    AVAILABLE INTAKES: "Vape", "Edible", "Smoke", "Topical"
-    AVAILABLE TYPES: "Indica", "Sativa", "Hybrid"
-    https://medcabinet2.herokuapp.com/
-
-    CREATE a collection of recommendations:
-      name your collection: -> "listName"
-      "intakes": oneOf(["Vape", "Edible", "Smoke", "Topical"]),
-      "types": oneOf["Indica", "Sativa", "Hybrid"],
-      "issues": "optional user inputed issue(s)",
-      "strain": "optional user inputed strain(s)",
-      "effect": "optional user inputed effect(s)",
-      "flavor": "optional user inputed flavor(s)"
-
-    GET list of lists for user (display as "my collections")
-
-    logged in homepage layout:
-      "my collections" panel with cards for each saved collection and a "create new collection" button in the shape of a card
-        create new collection button pops up a modal with a form
-      clicking on a collection opens a modal with strain cards that are expandable
-
-    --find out what happens if the token expired (optional/last)
-
-
-
-    */
     <Router>
       <div className="App">
         <HeaderKS user={user} setUser={setUser} />

@@ -1,8 +1,6 @@
 @import "../base.scss";
 @mixin formBase() {
   @include flexC();
-  justify-content: stretch;
-  align-content: stretch;
   align-items: stretch;
   background-color: $c2;
   margin-top: 0 auto;
@@ -44,7 +42,7 @@
   button:not(.flatButton) {
     border: none;
     font-family: $font1;
-    align-self: flex-end;
+    justify-self: center;
     @include button();
     margin: $sm;
   }

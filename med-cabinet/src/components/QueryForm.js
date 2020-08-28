@@ -31,7 +31,7 @@ export default function QueryForm(props) {
   });
   const onSubmit = (data) => {
     setSubmitButton({ enabled: false, text: "...hang on!" });
-    axiosWithAuth
+    axiosWithAuth(props.user.token)
       .post("/users/add-list", data)
       .then((r) => {
         if (r.status === 200) {
@@ -53,7 +53,7 @@ export default function QueryForm(props) {
   };
   useEffect(() => document.querySelector("#listName").focus(), []);
   return (
-    <form className="queryForm" onSubmit={handleSubmit(onSubmit)}>
+    <form className="popup" onSubmit={handleSubmit(onSubmit)}>
       <label htmlFor="listName">
         <p>give this collection a unique name:</p>
         <input

@@ -8,16 +8,16 @@ export default function DisplayList(props) {
     text: "delete this collection",
   });
   useEffect(() => {
-    axiosWithAuth
+    axiosWithAuth(props.user.token)
       .get(`/users/list/${props.listName}`)
       .then((r) => {
         setListItems(r.data.results);
       })
       .catch((e) => console.log(e));
-  }, [props.listName]);
+  }, [props.listName, props.user.token]);
   const deleteList = (listName) => {
     setDeleteButton({ disabled: true, text: "...deleting" });
-    axiosWithAuth
+    axiosWithAuth(props.user.token)
       .delete(`/users/delete-list`, { data: { listName: listName } })
       .then((r) => {
         props.exitPopup();

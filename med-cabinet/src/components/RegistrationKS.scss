@@ -3,4 +3,12 @@
 #registrationForm {
   @include formBase();
   max-width: 25rem;
+  form {
+    display: flex;
+    flex-direction: column;
+    justify-content: stretch;
+  }
+  button {
+    align-self: flex-end;
+  }
 }
