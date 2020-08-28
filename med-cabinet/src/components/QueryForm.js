@@ -2,20 +2,26 @@ import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers";
 import * as yup from "yup";
+import axiosWithAuth from "../utils/axiosWithAuth";
 const availableTypes = ["Indica", "Sativa", "Hybrid"];
 const availableIntakes = ["Vape", "Edible", "Smoke", "Topical"];
-const schema = yup.object().shape({
-  form: yup.string(),
-  listName: yup.string().required("⮙ name this collection"), //TODO: detect unique name by mapping the list of lists in parent's state!
-  intakes: yup.string().oneOf(availableIntakes, "⮙ choose intake method"),
-  types: yup.string().oneOf(availableTypes, "⮙ choose a type"),
-  issues: yup.string(),
-  strain: yup.string(),
-  effect: yup.string(),
-  flavor: yup.string(),
-});
-console.log(schema);
 export default function QueryForm(props) {
+  const schema = yup.object().shape({
+    form: yup.string(),
+    listName: yup
+      .string()
+      .required("⮙ name this collection")
+      .notOneOf(
+        props.lists.map((l) => l.listName),
+        "⮙ a collection with that name already exists"
+      ), //TODO: detect unique name by mapping the list of lists in parent's state!
+    intakes: yup.array().required("⮙ choose intake method(s)"),
+    types: yup.array().required("⮙ choose type(s)"),
+    issues: yup.string().required("⮙ include issue(s) you want to treat"),
+    strain: yup.string(),
+    effect: yup.string().required("⮙ include effect(s) you desire"),
+    flavor: yup.string(),
+  });
   const [submitButton, setSubmitButton] = useState({
     enabled: true,
     text: "Submit",
@@ -24,7 +30,26 @@ export default function QueryForm(props) {
     resolver: yupResolver(schema),
   });
   const onSubmit = (data) => {
-    props.setQuery(data);
+    setSubmitButton({ enabled: false, text: "...hang on!" });
+    axiosWithAuth
+      .post("/users/add-list", data)
+      .then((r) => {
+        if (r.status === 200) {
+          const newList = {
+            listName: r.data.list.name,
+            effect: r.data.list.effect,
+            intakes: r.data.list.intakes,
+            issues: r.data.list.issues,
+            strain: r.data.list.strain,
+          };
+          props.setLists([...props.lists, newList]);
+          props.exitPopup();
+        }
+      })
+      .catch((e) => {
+        console.log(e);
+        setSubmitButton({ enabled: true, text: "Submit" });
+      });
   };
   useEffect(() => document.querySelector("#listName").focus(), []);
   return (
@@ -56,28 +81,50 @@ export default function QueryForm(props) {
           </label>
         );
       })}
-      <label htmlFor="intake">
-        <p>type:</p>
-        <select id="intake" name="intake" ref={register}>
-          {availableIntakes.map((i) => (
-            <option value={i} key={`type-${i}`}>
-              {i}
-            </option>
-          ))}
-        </select>
+      <label>
+        <p>intake:</p>
+        <div className="row">
+          {availableIntakes.map((intake, index) => {
+            return (
+              <label htmlFor={`intakes[${index}]`} key={`intakes[${index}]`}>
+                <input
+                  type="checkbox"
+                  name="intakes"
+                  id={`intakes[${index}]`}
+                  value={intake}
+                  ref={register}
+                />
+                {intake}
+              </label>
+            );
+          })}
+        </div>
+        <p className="formError">{errors.types?.message}</p>
       </label>
-      <label htmlFor="types">
+      <label>
         <p>type:</p>
-        <select id="types" name="types" ref={register}>
-          {availableTypes.map((t) => (
-            <option value={t} key={`type-${t}`}>
-              {t}
-            </option>
-          ))}
-        </select>
+        <div className="row">
+          {availableTypes.map((type, index) => {
+            return (
+              <label htmlFor={`types[${index}]`} key={`types[${index}]`}>
+                <input
+                  type="checkbox"
+                  name="types"
+                  id={`types[${index}]`}
+                  value={type}
+                  ref={register}
+                />
+                {type}
+              </label>
+            );
+          })}
+        </div>
+        <p className="formError">{errors.types?.message}</p>
       </label>
       <p className="formError">{errors.form?.message}</p>
-      <button type="submit">Search ⮚</button>
+      <button type="submit" disabled={!submitButton.enabled}>
+        {submitButton.text}
+      </button>
     </form>
   );
 }

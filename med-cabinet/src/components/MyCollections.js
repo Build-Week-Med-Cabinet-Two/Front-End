@@ -17,7 +17,7 @@ export default function MyCollections(props) {
     <div className="myCollections">
       {popup.visible && (
         <PopupContainer exitPopup={exitPopup} title={popup.title}>
-          <QueryForm exitPopup={exitPopup} />
+          <QueryForm exitPopup={exitPopup} lists={lists} setLists={setLists} />
         </PopupContainer>
       )}
       <h2>my collections</h2>
@@ -30,8 +30,8 @@ export default function MyCollections(props) {
         >
           +
         </button>
-        {lists.map((list) => (
-          <button key={`list${list.listName}`} className="flatButton">
+        {lists.map((list, index) => (
+          <button key={`${list.listName}-${index}`} className="flatButton">
             {list.listName}
           </button>
         ))}

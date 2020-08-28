@@ -27,6 +27,12 @@
     @include flexC();
     padding: $sm;
     align-items: flex-start;
+    .row {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-evenly;
+      flex-wrap: wrap;
+    }
   }
   .formError {
     color: #933;
