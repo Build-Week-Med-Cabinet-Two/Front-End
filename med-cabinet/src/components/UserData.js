@@ -56,7 +56,7 @@ export default function Form() {
     e.preventDefault();
 
     axios
-      .post("https://medcabinet2.herokuapp.com/auth/register", formState)
+      .post("https://medcabinet2.herokuapp.com/add-list", formState)
       .then((response) => {
         setPost(response.data);
 
@@ -93,8 +93,8 @@ export default function Form() {
       <h2>What are you looking for?</h2>
       {serverError ? <p className="error">{serverError}</p> : null}
      
-      </label>
-      <label htmlFor="issue">
+
+       <label htmlFor="issue">
         Your Medical Issues
         <textarea
           name="issue"
@@ -165,10 +165,10 @@ export default function Form() {
         Preferred method of intake/consumption.
         <select id="intake" name="intake" onChange={inputChange}>
           <option value="">--Please choose an option--</option>
-          <option value="Vape">Indica</option>
-          <option value="Edible">Sativa</option>
-          <option value="Smoke">Hybrid</option>
-          <option value="Smoke">Topical</option>
+          <option value="Vape">Vape</option>
+          <option value="Edible">Edible</option>
+          <option value="Smoke">Smoke</option>
+          <option value="Topical">Topical</option>
         </select>
         {errors.intake.length > 0 ? (
           <p className="error">{errors.intake}</p>

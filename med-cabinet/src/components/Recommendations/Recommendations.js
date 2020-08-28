@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import axiosWithAuth from "../utils/axiosWithAuth";
+//import axiosWithAuth from "../utils/axiosWithAuth";
 import { useParams, useHistory } from "react-router-dom";
 import RecCard from "./RecCard";
 
@@ -13,7 +13,7 @@ function Recommendations({ addToSavedList, setRecList }) {
 
   const fetchRecommendations = (id) => {
     axios
-      .get(`strainapi.evanbusse.com/sxxwZnj`)
+      .get(`https://medcabinet2.herokuapp.com/users/lists${id}`)
       .then((res) => 
       setRecommendations(res.data)
       
@@ -22,11 +22,11 @@ function Recommendations({ addToSavedList, setRecList }) {
   };
 
   const saveRecommendations = () => {
-    addToSavedList(movie);
+    addToSavedList(recommendations);
   };
   const getNewList = () => {
     axios
-      .get("http://localhost:5000/api/movies")
+      .get("https://medcabinet2.herokuapp.com/users/lists")
       .then(res => 
         setRecList(res.data)
         )
@@ -36,10 +36,10 @@ function Recommendations({ addToSavedList, setRecList }) {
   const handleDelete = e => {
     e.preventDefault();
     axios
-      .delete(`http://localhost:5000/api/movies/${params.id}`)
+      .delete(`https://medcabinet2.herokuapp.com/users/lists${params.id}`)
       .then(res => {
         console.log("delete", res.data);
-        // this.setMovie({movie: res.data});
+        // this.setRecomendations({recommendations: res.data});
         getNewList();
         push(`/`);
         
@@ -50,7 +50,7 @@ function Recommendations({ addToSavedList, setRecList }) {
   };
 
   useEffect(() => {
-    fetchMovie(params.id);
+    fetchRecommendations(params.id);
   }, [params.id]);
 
   
@@ -62,7 +62,7 @@ function Recommendations({ addToSavedList, setRecList }) {
 
   return (
     <div className="save-wrapper">
-      {/* <MovieCard movie={Recommendations} /> */}
+      <RecCard Recommendation={Recommendations} />
 
       <div className="save-button" onClick={saveRecommendations}>
         Save
