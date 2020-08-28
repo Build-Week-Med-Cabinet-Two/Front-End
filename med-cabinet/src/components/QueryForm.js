@@ -55,7 +55,7 @@ export default function QueryForm(props) {
   return (
     <form className="queryForm" onSubmit={handleSubmit(onSubmit)}>
       <label htmlFor="listName">
-        <p>collection name</p>
+        <p>give this collection a unique name:</p>
         <input
           id="listName"
           type="text"
@@ -69,7 +69,7 @@ export default function QueryForm(props) {
       {["issues", "strain", "effect", "flavor"].map((q) => {
         return (
           <label htmlFor={q} key={q}>
-            <p>{q}</p>
+            <p>{q}:</p>
             <input
               id={q}
               type="text"

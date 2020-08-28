@@ -2,4 +2,5 @@
 @import "./formBase.scss";
 #loginForm {
   @include formBase();
+  max-width: 20rem;
 }

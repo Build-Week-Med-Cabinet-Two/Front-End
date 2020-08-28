@@ -34,7 +34,7 @@ export default function PopupContainer(props) {
             X
           </button>
         </h2>
-        {props.children}
+        {props.component}
       </div>
     </div>
   );

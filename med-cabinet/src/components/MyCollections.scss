@@ -2,7 +2,9 @@
 @import "./formBase.scss";
 .myCollections {
   @include formBase();
+  max-width: 50rem;
   .collectionWrapper {
+    display: flex;
     flex-direction: row;
     flex-wrap: wrap;
   }

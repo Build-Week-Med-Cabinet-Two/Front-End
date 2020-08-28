@@ -57,29 +57,31 @@ function App() {
     <Router>
       <div className="App">
         <HeaderKS user={user} setUser={setUser} />
-        <Switch>
-          <Route exact path="/">
-            {user.username === null ? (
-              <LandingPageKS />
-            ) : (
-              <MyCollections user={user} />
-            )}
-          </Route>
-          <Route path="/register">
-            {user.username === null ? (
-              <RegistrationKS setUser={setUser} />
-            ) : (
-              <Redirect to="/" />
-            )}
-          </Route>
-          <Route path="/login">
-            {user.username === null ? (
-              <LoginKS setUser={setUser} />
-            ) : (
-              <Redirect to="/" />
-            )}
-          </Route>
-        </Switch>
+        <section className="contentSection">
+          <Switch>
+            <Route exact path="/">
+              {user.username === null ? (
+                <LandingPageKS />
+              ) : (
+                <MyCollections user={user} />
+              )}
+            </Route>
+            <Route path="/register">
+              {user.username === null ? (
+                <RegistrationKS setUser={setUser} />
+              ) : (
+                <Redirect to="/" />
+              )}
+            </Route>
+            <Route path="/login">
+              {user.username === null ? (
+                <LoginKS setUser={setUser} />
+              ) : (
+                <Redirect to="/" />
+              )}
+            </Route>
+          </Switch>
+        </section>
       </div>
     </Router>
   );

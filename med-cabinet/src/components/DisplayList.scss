@@ -1,0 +1,19 @@
+@import "../base.scss";
+.listContainer {
+  @include flexC();
+  align-items: flex-start;
+  padding: $sm;
+  .strainCard {
+    &:not(:nth-of-type(1)) {
+      margin-top: $sm;
+    }
+    h3 {
+      background: linear-gradient(to left, $c2, $c4);
+      border-radius: $sm;
+      padding: $xs $sm;
+    }
+    p {
+      padding: $xs 0 0 $sm;
+    }
+  }
+}

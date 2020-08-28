@@ -27,9 +27,9 @@ function LoginKS(props) {
       .then((r) => {
         setSubmitButtonEnabled(true);
         if (r.data.token) {
-          props.setUser({ username: data.username, token: r.data.token });
           localStorage.setItem("token", r.data.token);
           localStorage.setItem("username", data.username);
+          props.setUser({ username: data.username, token: r.data.token });
         } else {
           setError("form", { type: "manual", message: "unknown error" });
         }
@@ -42,42 +42,44 @@ function LoginKS(props) {
   const usernameRef = useRef();
   useEffect(() => usernameRef.current.focus(), []);
   return (
-    <form id="loginForm" onSubmit={handleSubmit(onSubmit)}>
+    <div id="loginForm">
       <h2>log in</h2>
-      <label htmlFor="username">
-        <p>username:</p>
-        <input
-          id="username"
-          type="text"
-          name="username"
-          autoComplete="username"
-          ref={(e) => {
-            register(e);
-            usernameRef.current = e;
-          }}
-        ></input>
-        <p className="formError">{errors.username?.message}</p>
-      </label>
-      <label htmlFor="password">
-        <p>password:</p>
-        <input
-          id="password"
-          type="password"
-          name="password"
-          autoComplete="current-password"
-          ref={register}
-        ></input>
-        <p className="formError">{errors.password?.message}</p>
-      </label>
-      <p className="formError">{errors.form?.message}</p>
-      {submitButtonEnabled ? (
-        <button type="submit">log in!</button>
-      ) : (
-        <button type="submit" disabled>
-          ...hang on
-        </button>
-      )}
-    </form>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <label htmlFor="username">
+          <p>username:</p>
+          <input
+            id="username"
+            type="text"
+            name="username"
+            autoComplete="username"
+            ref={(e) => {
+              register(e);
+              usernameRef.current = e;
+            }}
+          ></input>
+          <p className="formError">{errors.username?.message}</p>
+        </label>
+        <label htmlFor="password">
+          <p>password:</p>
+          <input
+            id="password"
+            type="password"
+            name="password"
+            autoComplete="current-password"
+            ref={register}
+          ></input>
+          <p className="formError">{errors.password?.message}</p>
+        </label>
+        <p className="formError">{errors.form?.message}</p>
+        {submitButtonEnabled ? (
+          <button type="submit">log in!</button>
+        ) : (
+          <button type="submit" disabled>
+            ...hang on
+          </button>
+        )}
+      </form>
+    </div>
   );
 }
 export default LoginKS;

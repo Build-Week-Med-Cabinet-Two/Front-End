@@ -7,6 +7,8 @@
   position: fixed;
   top: 0;
   left: 0;
+  @include flexC();
+  justify-content: flex-start;
   > .popup {
     @include formBase();
     h2 {
@@ -29,7 +31,10 @@
     max-width: 30rem;
     min-width: 15rem;
     max-height: calc(100vh - 4rem);
-    overflow-y: auto;
+    overflow: hidden;
+    > div {
+      overflow-y: auto;
+    }
     @media screen and (max-width: 500px) {
       width: 100%;
       max-width: unset;

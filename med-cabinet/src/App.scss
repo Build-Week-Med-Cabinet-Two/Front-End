@@ -140,3 +140,7 @@ body {
   width: 100%;
   align-items: stretch;
 }
+.contentSection {
+  padding: $md;
+  @include flexC();
+}
