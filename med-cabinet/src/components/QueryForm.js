@@ -1,27 +1,47 @@
-import React, { useEffect } from "react";
-import "./QueryForm.scss";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers";
 import * as yup from "yup";
+const availableTypes = ["Indica", "Sativa", "Hybrid"];
+const availableIntakes = ["Vape", "Edible", "Smoke", "Topical"];
 const schema = yup.object().shape({
   form: yup.string(),
-  ailment: yup.string().required("⮙ enter an ailment"),
-  effects: yup.string().required("⮙ enter desired effects"),
-  flavor: yup.string().required("⮙ enter a flavor"),
-  type: yup.string().required("⮙ choose a type"),
+  listName: yup.string().required("⮙ name this collection"), //TODO: detect unique name by mapping the list of lists in parent's state!
+  intakes: yup.string().oneOf(availableIntakes, "⮙ choose intake method"),
+  types: yup.string().oneOf(availableTypes, "⮙ choose a type"),
+  issues: yup.string(),
+  strain: yup.string(),
+  effect: yup.string(),
+  flavor: yup.string(),
 });
+console.log(schema);
 export default function QueryForm(props) {
+  const [submitButton, setSubmitButton] = useState({
+    enabled: true,
+    text: "Submit",
+  });
   const { register, handleSubmit, errors } = useForm({
     resolver: yupResolver(schema),
   });
   const onSubmit = (data) => {
     props.setQuery(data);
   };
-  useEffect(() => document.querySelector("#ailment").focus(), []);
+  useEffect(() => document.querySelector("#listName").focus(), []);
   return (
     <form className="queryForm" onSubmit={handleSubmit(onSubmit)}>
-      <h2>what are looking for?</h2>
-      {["ailment", "effects", "flavor"].map((q) => {
+      <label htmlFor="listName">
+        <p>collection name</p>
+        <input
+          id="listName"
+          type="text"
+          name="listName"
+          autoComplete="listName"
+          ref={register}
+        />
+        <p className="formError">{errors.listName?.message}</p>
+      </label>
+
+      {["issues", "strain", "effect", "flavor"].map((q) => {
         return (
           <label htmlFor={q} key={q}>
             <p>{q}</p>
@@ -36,12 +56,24 @@ export default function QueryForm(props) {
           </label>
         );
       })}
-      <label htmlFor="type" key="type">
+      <label htmlFor="intake">
         <p>type:</p>
-        <select id="type" name="type" ref={register}>
-          <option value="indica">indica</option>
-          <option value="sativa">sativa</option>
-          <option value="hybrid">hybrid</option>
+        <select id="intake" name="intake" ref={register}>
+          {availableIntakes.map((i) => (
+            <option value={i} key={`type-${i}`}>
+              {i}
+            </option>
+          ))}
+        </select>
+      </label>
+      <label htmlFor="types">
+        <p>type:</p>
+        <select id="types" name="types" ref={register}>
+          {availableTypes.map((t) => (
+            <option value={t} key={`type-${t}`}>
+              {t}
+            </option>
+          ))}
         </select>
       </label>
       <p className="formError">{errors.form?.message}</p>

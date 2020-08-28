@@ -2,4 +2,8 @@
 @import "./formBase.scss";
 .myCollections {
   @include formBase();
+  .collectionWrapper {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
 }

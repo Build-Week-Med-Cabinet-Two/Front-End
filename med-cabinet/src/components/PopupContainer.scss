@@ -1,0 +1,39 @@
+@import "../base.scss";
+@import "./formBase.scss";
+.popupContainer {
+  width: 100vw;
+  height: 100vh;
+  background-color: transparentize(black, 0.6);
+  position: fixed;
+  top: 0;
+  left: 0;
+  > .popup {
+    @include formBase();
+    h2 {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      .closeButton {
+        margin: 0;
+        padding: $xs $sm;
+        border-radius: $xs $sm $xs $xs;
+        background-color: $c2;
+        &:hover {
+          background-color: white;
+          color: $c2;
+        }
+      }
+    }
+    margin-top: 3.5rem;
+    box-shadow: $xs $xs $md 0 black;
+    max-width: 30rem;
+    min-width: 15rem;
+    max-height: calc(100vh - 4rem);
+    overflow-y: auto;
+    @media screen and (max-width: 500px) {
+      width: 100%;
+      max-width: unset;
+      min-width: unset;
+    }
+  }
+}
