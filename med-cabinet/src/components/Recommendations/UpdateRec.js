@@ -7,9 +7,9 @@ const initialRecommendations = {
   strain: "",
   flavors: "",
 	effects: "",
-    rating: "",
-    type: "",
-    description: "",
+  rating: "",
+  type: "",
+  description: "",
 	
 };
 const UpdateRecommendations = props => {
@@ -19,7 +19,7 @@ const UpdateRecommendations = props => {
 
   useEffect(() => {
     axios
-      .get(`strainapi.evanbusse.com/API_KEY/strains/data/desc/STRAIN_ID`)
+      .get(`https://medcabinet2.herokuapp.com/users/lists${id}`)
       .then(res => setRecommendations(res.data))
       .catch(err =>
         console.error(
@@ -50,7 +50,7 @@ const UpdateRecommendations = props => {
     e.preventDefault();
     // make a PUT request to edit the item
     axios
-      .put(`strainapi.evanbusse.com/API_KEY/strains/data/desc/STRAIN_ID`, recommendations)
+      .put(`https://medcabinet2.herokuapp.com/users/lists${recommendations.id}`, recommendations)
       .then(res => {
       const newRecList = props.recommendations.map(rec => {
         if (rec.id === res.data.id) {
@@ -98,7 +98,7 @@ const UpdateRecommendations = props => {
           type="text"
           name="effects"
           onChange={changeHandler}
-          placeholder="Meta Score"
+          placeholder="Desired Effects"
           value={recommendations.effects}
         />
         <div className="baseline" />
