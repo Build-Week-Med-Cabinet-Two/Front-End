@@ -60,6 +60,27 @@
       cursor: pointer;
     }
   }
+  button.expand,
+  button.collapse {
+    margin: $xs;
+    padding: $xs;
+    align-self: center;
+    width: 100%;
+    background: linear-gradient(
+      to right,
+      $c2 0%,
+      $c2 30%,
+      lighten($c2, 10) 50%,
+      $c2 70%,
+      $c2
+    );
+    box-shadow: unset;
+    outline: none;
+    &:hover {
+      color: $c3;
+    }
+  }
+
   button:disabled {
     background-color: desaturate($c3, 20);
     color: darken($c5, 50);

@@ -1,12 +1,13 @@
 @import "../base.scss";
 .listContainer {
   @include flexC();
-  align-items: flex-start;
-  align-content: flex-start;
+  align-items: stretch;
   justify-content: flex-start;
   padding: $sm;
   overflow-y: auto;
   .strainCard {
+    @include flexC();
+    align-items: stretch;
     &:not(:nth-of-type(1)) {
       margin-top: $sm;
     }

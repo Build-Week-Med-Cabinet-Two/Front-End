@@ -7,6 +7,7 @@ export default function DisplayList(props) {
     disabled: false,
     text: "delete this collection",
   });
+  const [expandedItems, setExpandedItems] = useState([]);
   useEffect(() => {
     axiosWithAuth(props.user.token)
       .get(`/users/list/${props.listName}`)
@@ -31,14 +32,41 @@ export default function DisplayList(props) {
     <>
       <div className="listContainer">
         {listItems.length === 0 && <p>... loading</p>}
-        {listItems.map((item) => {
+        {listItems.map((item, index) => {
           return (
             <div key={item.Strain} className="strainCard">
               <h3>
                 {item.Strain} ({item.Type})
               </h3>
-              <p>Effects: {item.Effects}</p>
-              <p>Flavor: {item.Flavor}</p>
+              <p>
+                <span className="label">Effects</span>: {item.Effects}
+              </p>
+              <p>
+                <span className="label">Flavor</span>: {item.Flavor}
+              </p>
+              {expandedItems.includes(index) ? (
+                <>
+                  <p>
+                    <span className="label">Description:</span>{" "}
+                    {item.Description}
+                  </p>
+                  <button
+                    className="collapse"
+                    onClick={() =>
+                      setExpandedItems(expandedItems.filter((i) => i !== index))
+                    }
+                  >
+                    ⮙
+                  </button>
+                </>
+              ) : (
+                <button
+                  className="expand"
+                  onClick={() => setExpandedItems([...expandedItems, index])}
+                >
+                  ⮛
+                </button>
+              )}
             </div>
           );
         })}
