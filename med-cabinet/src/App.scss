@@ -158,3 +158,22 @@ a {
   text-decoration: none;
   color: black;
 }
+/* width */
+::-webkit-scrollbar {
+  width: $sm;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: $c4;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: $c3;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: lighten($c3, 10);
+}
