@@ -7,14 +7,24 @@ export default function DisplayList(props) {
     disabled: false,
     text: "delete this collection",
   });
+  const [error, setError] = useState("...downloading");
   const [expandedItems, setExpandedItems] = useState([]);
   useEffect(() => {
+    setError("...downloading");
     axiosWithAuth(props.user.token)
       .get(`/users/list/${props.listName}`)
       .then((r) => {
-        setListItems(r.data.results);
+        if ("Request failed".indexOf(r.data.results) !== -1) {
+          setError("data science server error");
+        } else {
+          setError(null);
+          setListItems(r.data.results);
+        }
       })
-      .catch((e) => console.log(e));
+      .catch((e) => {
+        setError("error communicating with server");
+        console.log(e);
+      });
   }, [props.listName, props.user.token]);
   const deleteList = (listName) => {
     setDeleteButton({ disabled: true, text: "...deleting" });
@@ -31,56 +41,69 @@ export default function DisplayList(props) {
   return (
     <>
       <div className="listContainer">
-        {listItems.length === 0 && <p>... loading</p>}
-        {listItems.map((item, index) => {
-          return (
-            <div key={item.Strain} className="strainCard">
-              <h3>
-                {item.Strain} ({item.Type})
-              </h3>
-              <p>
-                <span className="label">Effects</span>: {item.Effects}
-              </p>
-              <p>
-                <span className="label">Flavor</span>: {item.Flavor}
-              </p>
-              {expandedItems.includes(index) ? (
-                <>
+        {listItems.length === 0 || error !== null ? (
+          <p>{error}</p>
+        ) : (
+          <>
+            {listItems.map((item, index) => {
+              return (
+                <div key={item.Strain} className="strainCard">
+                  <h3>
+                    {item.Strain} ({item.Type})
+                  </h3>
                   <p>
-                    <span className="label">Description:</span>{" "}
-                    {item.Description}
+                    <span className="label">Effects</span>: {item.Effects}
                   </p>
-                  <button
-                    className="collapse"
-                    onClick={() =>
-                      setExpandedItems(expandedItems.filter((i) => i !== index))
-                    }
-                  >
-                    ⮙
-                  </button>
-                </>
-              ) : (
-                <button
-                  className="expand"
-                  onClick={() => setExpandedItems([...expandedItems, index])}
-                >
-                  ⮛
-                </button>
-              )}
-            </div>
-          );
-        })}
+                  <p>
+                    <span className="label">Flavor</span>: {item.Flavor}
+                  </p>
+                  {expandedItems.includes(index) ? (
+                    <>
+                      <p>
+                        <span className="label">Description:</span>{" "}
+                        {item.Description}
+                      </p>
+                      <button
+                        className="collapse"
+                        onClick={() =>
+                          setExpandedItems(
+                            expandedItems.filter((i) => i !== index)
+                          )
+                        }
+                      >
+                        ⮙
+                      </button>
+                    </>
+                  ) : (
+                    <button
+                      className="expand"
+                      onClick={() =>
+                        setExpandedItems([...expandedItems, index])
+                      }
+                    >
+                      ⮛
+                    </button>
+                  )}
+                </div>
+              );
+            })}
+          </>
+        )}
       </div>
-      <div className="listToolbar">
-        <button
-          onClick={() => {
-            deleteList(props.listName);
-          }}
-          disabled={deleteButton.disabled}
-        >
-          {deleteButton.text}
-        </button>
-      </div>
+      {error === null && (
+        <>
+          <div className="listToolbar">
+            <button
+              onClick={() => {
+                deleteList(props.listName);
+              }}
+              disabled={deleteButton.disabled}
+            >
+              {deleteButton.text}
+            </button>
+          </div>
+        </>
+      )}
     </>
   );
 }
