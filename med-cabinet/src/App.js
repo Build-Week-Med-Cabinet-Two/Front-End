@@ -1,10 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-  BrowserRouter as Router,
-  Route,
-  Switch,
-  Redirect,
-} from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "./App.scss";
 import HeaderKS from "./components/HeaderKS";
 import RegistrationKS from "./components/RegistrationKS";
@@ -30,55 +25,29 @@ function App() {
     <Router>
       <div className="App">
         <HeaderKS user={user} setUser={setUser} />
-        <section className="contentSection">
-          <Switch>
-            <Route exact path="/">
-              {user.username === null ? (
+
+        {user.username === null ? (
+          <section className="contentSection">
+            <Switch>
+              <Route exact path="/">
                 <LandingPageKS />
-              ) : (
-                <MyCollections user={user} />
-              )}
-            </Route>
-            <Route path="/register">
-              {user.username === null ? (
-                <RegistrationKS setUser={setUser} />
-              ) : (
-                <Redirect to="/" />
-              )}
-            </Route>
-            <Route path="/login">
-              {user.username === null ? (
+              </Route>
+              <Route path="/login">
                 <LoginKS setUser={setUser} />
-              ) : (
-                <Redirect to="/" />
-              )}
-            </Route>
-          </Switch>
-        </section>
+              </Route>
+              <Route path="/register">
+                <RegistrationKS setUser={setUser} />
+              </Route>
+            </Switch>
+          </section>
+        ) : (
+          <section className="contentSection loggedIn">
+            <MyCollections user={user} />
+          </section>
+        )}
       </div>
     </Router>
   );
 }
 
 export default App;
-
-// import React from "react";
-// import { BrowserRouter as Router, Route } from "react-router-dom";
-
-// import Login from "./components/Login";
-// import PrivateRoute from "../utils/PrivateRoute";
-// //import DataForm from ".components/DataForm";
-
-// function App() {
-//   return (
-//     <Router>
-//       <div className="App">
-//         <Route exact path="/" component={Login} />
-
-//         <PrivateRoute exact path='/protected' component={} />
-//       </div>
-//     </Router>
-//   );
-// }
-
-// export default App;
