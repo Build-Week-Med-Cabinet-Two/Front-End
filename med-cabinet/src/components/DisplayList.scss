@@ -2,7 +2,10 @@
 .listContainer {
   @include flexC();
   align-items: flex-start;
+  align-content: flex-start;
+  justify-content: flex-start;
   padding: $sm;
+  overflow-y: auto;
   .strainCard {
     &:not(:nth-of-type(1)) {
       margin-top: $sm;
@@ -18,7 +21,7 @@
   }
 }
 .listToolbar {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-end;
+  min-height: 3rem;
+
+  align-self: flex-end;
 }

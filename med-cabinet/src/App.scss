@@ -137,10 +137,18 @@ body {
 }
 .App {
   @include flexC();
-  width: 100%;
+  width: 100vw;
+  height: 100vh;
   align-items: stretch;
+  justify-content: stretch;
 }
 .contentSection {
   padding: $md;
   @include flexC();
+  flex-grow: 1;
+  justify-content: flex-start;
+  align-content: center;
+  align-items: center;
+  background: url("kushman02.png") no-repeat left bottom;
+  background-size: 50vw;
 }

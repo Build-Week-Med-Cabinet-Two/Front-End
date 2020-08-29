@@ -1,13 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "./HeaderKS.scss";
-import logo from "../logo.png";
+import Logo from "./Logo";
 function HeaderKS(props) {
   return (
     <header>
       <Link to="/">
         <h1>
-          <img src={logo} id="headerLogo" alt="MedCabinet Logo" />
+          <Logo id="headerLogo" alt="MedCabinet Logo" />
           MedicineCabinet
         </h1>
       </Link>

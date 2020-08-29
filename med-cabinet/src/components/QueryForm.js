@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers";
 import * as yup from "yup";
 import axiosWithAuth from "../utils/axiosWithAuth";
+import "./QueryForm.scss";
 const availableTypes = ["Indica", "Sativa", "Hybrid"];
 const availableIntakes = ["Vape", "Edible", "Smoke", "Topical"];
 export default function QueryForm(props) {
@@ -53,7 +54,7 @@ export default function QueryForm(props) {
   };
   useEffect(() => document.querySelector("#listName").focus(), []);
   return (
-    <form className="popup" onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={handleSubmit(onSubmit)}>
       <label htmlFor="listName">
         <p>give this collection a unique name:</p>
         <input

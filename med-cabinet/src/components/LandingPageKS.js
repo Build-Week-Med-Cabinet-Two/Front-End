@@ -5,7 +5,7 @@ import kushman from "../kushman02.png";
 export default function LandingPage(props) {
   return (
     <div className="landingPage">
-      <h2>Welcome to MedCabinet!</h2>
+      <h2>Welcome to MedicineCabinet!</h2>
       <h3>Our Mission</h3>
       <p>
         Our goal is to make it blindingly simple for you to find the strain of

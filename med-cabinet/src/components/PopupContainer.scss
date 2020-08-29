@@ -11,6 +11,9 @@
   justify-content: flex-start;
   > .popup {
     @include formBase();
+    justify-content: flex-start;
+    align-content: flex-start;
+    align-items: flex-start;
     h2 {
       display: flex;
       flex-direction: row;
@@ -26,19 +29,22 @@
         }
       }
     }
+    button {
+      align-self: flex-end;
+      justify-self: flex-end;
+    }
     margin-top: 3.5rem;
     box-shadow: $xs $xs $md 0 black;
     max-width: 30rem;
     min-width: 15rem;
     max-height: calc(100vh - 4rem);
     overflow: hidden;
-    > div {
-      overflow-y: auto;
-    }
     @media screen and (max-width: 500px) {
       width: 100%;
+      height: 100%;
       max-width: unset;
       min-width: unset;
+      margin-top: 0;
     }
   }
 }
