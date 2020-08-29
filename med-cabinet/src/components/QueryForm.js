@@ -27,7 +27,7 @@ export default function QueryForm(props) {
     enabled: true,
     text: "Submit",
   });
-  const { register, handleSubmit, errors } = useForm({
+  const { register, handleSubmit, setError, errors } = useForm({
     resolver: yupResolver(schema),
   });
   const onSubmit = (data) => {
@@ -49,6 +49,7 @@ export default function QueryForm(props) {
       })
       .catch((e) => {
         console.log(e);
+        setError("form", { type: "manual", message: "error logging in" });
         setSubmitButton({ enabled: true, text: "Submit" });
       });
   };

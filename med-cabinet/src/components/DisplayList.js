@@ -49,7 +49,21 @@ export default function DisplayList(props) {
               return (
                 <div key={item.Strain} className="strainCard">
                   <h3>
-                    {item.Strain} ({item.Type})
+                    <span>
+                      {item.Strain} ({item.Type})
+                    </span>
+                    <span>
+                      <a
+                        className="googleSearch"
+                        href={`https://www.google.com/search?q=${item.Strain}`}
+                        target="new"
+                      >
+                        <span role="img" aria-label="magnifying glass">
+                          🔍
+                        </span>
+                        google
+                      </a>
+                    </span>
                   </h3>
                   <p>
                     <span className="label">Effects</span>: {item.Effects}
