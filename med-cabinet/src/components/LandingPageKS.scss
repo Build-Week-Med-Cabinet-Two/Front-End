@@ -2,7 +2,13 @@
 .landingPage {
   @include flexC();
   margin-top: $sm;
-  background: linear-gradient(to bottom, $c2 0%, $c3 20%, $c3);
+  background: linear-gradient(
+    to bottom,
+    $c2 0%,
+    hsla(0, 0, 0, 0) 20%,
+    hsla(0, 0, 0, 0) 80%,
+    $c2
+  );
   border-radius: $sm;
   align-items: flex-start;
   align-self: center;
@@ -30,7 +36,11 @@
     color: white;
     padding: $sm;
     &:hover {
-      background: radial-gradient($c5 0%, $c3 70%, $c3);
+      background: radial-gradient(
+        $c5 0%,
+        hsla(0, 0, 0, 0) 70%,
+        hsla(0, 0, 0, 0)
+      );
     }
   }
 }
