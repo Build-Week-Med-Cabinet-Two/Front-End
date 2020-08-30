@@ -33,6 +33,12 @@
       flex-wrap: wrap;
     }
   }
+  p {
+    padding: $sm;
+  }
+  label > p {
+    padding: 0;
+  }
   .formError {
     color: #933;
     font-weight: bold;

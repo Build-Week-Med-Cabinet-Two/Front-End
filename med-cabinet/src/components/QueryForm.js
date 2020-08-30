@@ -6,6 +6,14 @@ import axiosWithAuth from "../utils/axiosWithAuth";
 import "./QueryForm.scss";
 const availableTypes = ["Indica", "Sativa", "Hybrid"];
 const availableIntakes = ["Vape", "Edible", "Smoke", "Topical"];
+const friendlyText = {
+  intakes: "preferred intake method(s) *",
+  types: "preferred cannabis type(s) *",
+  issues: "ailments/symptoms you want to treat *",
+  effect: "desired effect(s) *",
+  flavor: "preferred flavor(s)",
+  strain: "what strain(s) do you like best?",
+};
 export default function QueryForm(props) {
   const schema = yup.object().shape({
     form: yup.string(),
@@ -56,6 +64,10 @@ export default function QueryForm(props) {
   useEffect(() => document.querySelector("#listName").focus(), []);
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
+      <h3>
+        we'll use our machine-learning algorithm to generate a collection of
+        cannabis strains that best fit your preferences
+      </h3>
       <label htmlFor="listName">
         <p>give this collection a unique name:</p>
         <input
@@ -71,12 +83,12 @@ export default function QueryForm(props) {
       {["issues", "strain", "effect", "flavor"].map((q) => {
         return (
           <label htmlFor={q} key={q}>
-            <p>{q}:</p>
+            <p>{friendlyText[q]}:</p>
             <input
               id={q}
               type="text"
               name={q}
-              autoComplete="off"
+              autoComplete={q}
               ref={register}
             ></input>
             <p className="formError">{errors[q]?.message}</p>
@@ -84,7 +96,7 @@ export default function QueryForm(props) {
         );
       })}
       <label>
-        <p>intake:</p>
+        <p>{friendlyText["intakes"]}</p>
         <div className="row">
           {availableIntakes.map((intake, index) => {
             return (
@@ -101,10 +113,10 @@ export default function QueryForm(props) {
             );
           })}
         </div>
-        <p className="formError">{errors.types?.message}</p>
+        <p className="formError">{errors.intakes?.message}</p>
       </label>
       <label>
-        <p>type:</p>
+        <p>{friendlyText["types"]}:</p>
         <div className="row">
           {availableTypes.map((type, index) => {
             return (

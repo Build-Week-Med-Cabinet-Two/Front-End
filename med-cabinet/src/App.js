@@ -1,5 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  Redirect,
+} from "react-router-dom";
 import "./App.scss";
 import HeaderKS from "./components/HeaderKS";
 import RegistrationKS from "./components/RegistrationKS";
@@ -42,6 +47,7 @@ function App() {
           </section>
         ) : (
           <section className="contentSection loggedIn">
+            <Redirect to="/" />
             <MyCollections user={user} />
           </section>
         )}
